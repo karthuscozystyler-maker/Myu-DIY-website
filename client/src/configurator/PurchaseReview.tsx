@@ -11,6 +11,7 @@ import {
   type Design,
   hasFinishChoice,
   packUnit,
+  pieceUnit,
 } from "./model";
 import { buildDIYCartSelection } from "./cart-plan";
 import CartActions from "./CartActions";
@@ -107,7 +108,7 @@ export default function PurchaseReview({
                       </small>
                     ) : (
                       <small>
-                        {colorName(row.finish)} · 購買 {row.purchaseQuantity} 件
+                        {colorName(row.finish)} · 購買 {row.purchaseQuantity} {pieceUnit(item)}
                       </small>
                     )}
                   </div>

@@ -89,10 +89,15 @@ describe("received full catalog", () => {
     }
   });
 
-  it("places the adjustable rack as single 5.5 × 25 cm uprights sold in pairs", () => {
+  it("places the adjustable rack as one set: two 5.5 cm uprights 15 cm apart", () => {
     const rack = ACCESSORY_DATA["accessory-18"];
     expect(rack.dimensionsVerified).toBe(true);
-    expect([rack.width, rack.height, rack.packSize]).toEqual([55, 250, 2]);
+    expect([rack.width, rack.height, rack.packSize]).toEqual([
+      55 + 150 + 55,
+      250,
+      1,
+    ]);
+    expect(rack.packUnit).toBe("套");
     expect(canPlacePiece("accessory-18", "small", "portrait")).toBe(true);
     expect(canPlacePiece("accessory-18", "small", "landscape")).toBe(true);
   });

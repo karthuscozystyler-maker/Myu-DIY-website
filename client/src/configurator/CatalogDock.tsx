@@ -17,6 +17,7 @@ import {
   type Series,
   hasFinishChoice,
   packUnit,
+  pieceUnit,
 } from "./model";
 
 type Props = {
@@ -178,7 +179,7 @@ export default function CatalogDock({
                   const unit =
                     item.packSize > 1
                       ? `／${item.packSize}入${packUnit(item)}`
-                      : "／件";
+                      : `／${pieceUnit(item)}`;
                   return (
                     <button
                       key={kind}

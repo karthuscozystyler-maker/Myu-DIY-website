@@ -343,7 +343,8 @@ export const ACCESSORY_DATA = {
   "accessory-18": {
     name: "自由調節收納架",
     short: "自由調節收納架",
-    width: 55,
+    // One set: left and right 5.5 cm uprights, 15 cm apart.
+    width: 260,
     height: 250,
     depth: null,
     dimensionsVerified: true,
@@ -352,8 +353,8 @@ export const ACCESSORY_DATA = {
       cream: 148,
       charcoal: 148,
     },
-    description: "每套左右兩支，可按需要調節間距；畫布上一支代表一支實物。",
-    packSize: 2,
+    description: "每套左右兩支（每支 5.5 × 25 cm），中間相距 15 cm。",
+    packSize: 1,
     packUnit: "套",
     series: ["desk"],
     skus: {

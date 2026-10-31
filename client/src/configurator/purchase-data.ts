@@ -8,6 +8,7 @@ import {
   type Design,
   hasFinishChoice,
   packUnit,
+  pieceUnit,
 } from "./model";
 import { getFabric } from "./fabrics";
 
@@ -66,7 +67,7 @@ export function purchaseListText(design: Design) {
     const isPack = item.packSize > 1;
     const unitPrice = getAccessoryPrice(row.kind, row.finish);
     lines.push(
-      `${item.name}${hasFinishChoice(item) ? `（${colorName(row.finish)}）` : ""}：${row.purchaseQuantity}${isPack ? `${packUnit(item)}／每${packUnit(item)}${item.packSize}入` : "件"}；${priceText(
+      `${item.name}${hasFinishChoice(item) ? `（${colorName(row.finish)}）` : ""}：${row.purchaseQuantity}${isPack ? `${packUnit(item)}／每${packUnit(item)}${item.packSize}入` : pieceUnit(item)}；${priceText(
         unitPrice === null ? null : unitPrice * row.purchaseQuantity
       )}`
     );

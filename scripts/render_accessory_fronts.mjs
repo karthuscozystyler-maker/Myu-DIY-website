@@ -54,10 +54,19 @@ const defs = p => `
     <stop offset="0.975" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.16"/>
   </linearGradient>
   <linearGradient id="lip" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="${p.light}"/><stop offset="0.25" stop-color="${p.body}"/><stop offset="1" stop-color="${p.low}"/>
+    <stop offset="0" stop-color="${p.light}"/><stop offset="0.12" stop-color="${p.light}"/><stop offset="0.55" stop-color="${p.body}"/>
+    <stop offset="0.9" stop-color="${p.low}"/><stop offset="1" stop-color="${p.edge}"/>
+  </linearGradient>
+  <linearGradient id="bevel" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity="0.45"/><stop offset="0.035" stop-color="#fff" stop-opacity="0"/>
+    <stop offset="0.93" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.18"/>
   </linearGradient>
   <linearGradient id="rod" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="${p.light}"/><stop offset="0.45" stop-color="${p.body}"/><stop offset="1" stop-color="${p.edge}"/>
+    <stop offset="0" stop-color="${p.edge}"/><stop offset="0.18" stop-color="${p.light}"/><stop offset="0.4" stop-color="${p.light}"/>
+    <stop offset="0.75" stop-color="${p.body}"/><stop offset="1" stop-color="${p.edge}"/>
+  </linearGradient>
+  <linearGradient id="rodV" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="${p.edge}"/><stop offset="0.3" stop-color="${p.light}"/><stop offset="0.75" stop-color="${p.body}"/><stop offset="1" stop-color="${p.edge}"/>
   </linearGradient>
   <linearGradient id="base" x1="0" y1="0" x2="0" y2="1">
     <stop offset="0" stop-color="#3A3A3A"/><stop offset="0.3" stop-color="${p.base}"/><stop offset="1" stop-color="#111"/>
@@ -71,8 +80,8 @@ const defs = p => `
     <feComposite in2="SourceGraphic" operator="in"/>
   </filter>
   <filter id="drop" x="-10%" y="-10%" width="120%" height="140%">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="1.2"/><feOffset dy="1.5"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="1.6"/><feOffset dy="2.2"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.55"/></feComponentTransfer>
     <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
   </filter>
 </defs>`;
@@ -85,12 +94,13 @@ const panel = (p, x, y, w, h, r = 2.5, filter = "") =>
   <rect ${rr(x, y, w, h, r)} fill="url(#face)"/>
   <rect ${rr(x, y, w, h, r)} fill="url(#face)" filter="url(#grain)" opacity="0.9"/>
   <rect ${rr(x, y, w, h, r)} fill="url(#sides)"/>
+  <rect ${rr(x, y, w, h, r)} fill="url(#bevel)"/>
   <rect ${rr(x + 0.35, y + 0.35, w - 0.7, h - 0.7, Math.max(0, r - 0.35))} fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="0.45"/>
   <rect ${rr(x, y, w, h, r)} fill="none" stroke="${p.edge}" stroke-width="0.9"/>
   </g>`;
 /** A front-facing strip (shelf lip, tray front) that sits proud of the panel behind it. */
 const lip = (p, x, y, w, h, r = 1.5) =>
-  `<g filter="url(#drop)"><rect ${rr(x, y, w, h, r)} fill="url(#lip)"/><rect ${rr(x, y, w, h, r)} fill="url(#sides)"/>
+  `<g filter="url(#drop)"><rect ${rr(x, y, w, h, r)} fill="url(#lip)"/><rect ${rr(x, y, w, h, r)} fill="url(#lip)" filter="url(#grain)" opacity="0.6"/><rect ${rr(x, y, w, h, r)} fill="url(#sides)"/>
   <rect ${rr(x, y, w, h, r)} fill="none" stroke="${p.edge}" stroke-width="0.8"/>
   <line x1="${x + r}" y1="${y + 0.4}" x2="${x + w - r}" y2="${y + 0.4}" stroke="#fff" stroke-opacity="0.45" stroke-width="0.4"/></g>`;
 /** A recessed opening: dark with a light lower bevel. */
@@ -115,7 +125,7 @@ const hook = (p, cx, y, h = 7, w = 4.6) =>
 const rod = (p, x, y, w, t = 3.2) =>
   `<g filter="url(#drop)"><rect ${rr(x, y, w, t, t / 2)} fill="url(#rod)" stroke="${p.edge}" stroke-width="0.4"/></g>`;
 const post = (p, x, y, h, t = 3.2) =>
-  `<g filter="url(#drop)"><rect ${rr(x, y, t, h, t / 2)} fill="url(#rod)" stroke="${p.edge}" stroke-width="0.4"/></g>`;
+  `<g filter="url(#drop)"><rect ${rr(x, y, t, h, t / 2)} fill="url(#rodV)" stroke="${p.edge}" stroke-width="0.4"/></g>`;
 const knob = (p, cx, cy, r = 6) =>
   `<g filter="url(#drop)"><circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#knob)" stroke="${p.edge}" stroke-width="0.5"/>
   <circle cx="${cx}" cy="${cy}" r="${r * 0.62}" fill="none" stroke="${p.edge}" stroke-opacity="0.6" stroke-width="0.4"/></g>`;
@@ -171,7 +181,7 @@ const DRAWINGS = {
     panel(p, 0, 0, 180, 110, 4) + lip(p, 0, 36, 180, 74, 3) + vents(p, 112, 72, 46, 6)],
   // 方格收納架 長款 25 × 11.5 cm
   "accessory-13": [250, 115, p =>
-    panel(p, 0, 0, 250, 115, 4) + lip(p, 0, 38, 250, 77, 3) + vents(p, 160, 76, 62, 6)],
+    panel(p, 0, 0, 250, 115, 10) + lip(p, 0, 38, 250, 77, 10) + vents(p, 160, 76, 62, 6)],
   // 梳妝收納架 長款 21 × 9 cm: box with knob and an open end compartment.
   "accessory-14": [210, 90, p =>
     panel(p, 0, 0, 210, 90, 8) + `<rect ${rr(168, 6, 36, 78, 5)} fill="${p.inner}"/>` + panel(p, 0, 0, 166, 90, 8) + knob(p, 120, 50, 10)],
@@ -182,9 +192,9 @@ const DRAWINGS = {
   "accessory-17": [180, 145, p =>
     panel(p, 0, 0, 180, 145, 3) + `<rect ${rr(12, 34, 134, 96, 6)} fill="${p.inner}"/>` +
     lip(p, 0, 0, 180, 32, 3) + logo(p, 9, 10) + lip(p, 0, 133, 180, 12, 2)],
-  // 自由調節收納架: one upright, 5.5 × 25 cm (sold as a left/right pair).
-  "accessory-18": [55, 250, p =>
-    panel(p, 0, 0, 55, 250, 4) + logo(p, 16, 16, 12) + hole(p, 27.5, 36, 1.5) + lip(p, 0, 238, 55, 12, 2)],
+  // 自由調節收納架: one set = left and right 5.5 × 25 cm uprights, 15 cm apart.
+  "accessory-18": [260, 250, p =>
+    [0, 205].map(x => panel(p, x, 0, 55, 250, 4) + logo(p, x + 16, 16, 12) + hole(p, x + 27.5, 36, 1.5) + lip(p, x, 238, 55, 12, 2)).join("")],
   // 鍋蓋架 18 × 12 cm: back plate and a notched, vented front panel.
   "accessory-19": [180, 120, p =>
     panel(p, 0, 0, 180, 120, 6) +
@@ -195,8 +205,11 @@ const DRAWINGS = {
     panel(p, 0, 0, 100, 250, 4) + hole(p, 50, 16, 1.6) + lip(p, 0, 243, 100, 7, 1.5)],
   // 隱形六勾衣帽架 42.5 × 6 cm: plate with six fold-down hooks.
   "accessory-21": [425, 60, p =>
-    panel(p, 0, 0, 425, 60, 3) +
-    [0, 1, 2, 3, 4, 5].map(i => `<rect ${rr(24 + i * 66, 9, 49, 42, 2)} fill="${p.inner}"/>` + lip(p, 44 + i * 66, 13, 9, 34, 2)).join("")],
+    panel(p, 0, 0, 425, 60, 2.5) + `<rect x="11" y="2.5" width="403" height="52" fill="${p.side}" opacity="0.6"/>` +
+    [0, 1, 2, 3, 4, 5].map(i => {
+      const x = 12 + i * 67;
+      return lip(p, x, 3, 66.2, 51, 1) + `<line x1="${x + 14}" y1="5" x2="${x + 14}" y2="52" stroke="${p.edge}" stroke-opacity="0.55" stroke-width="0.5"/><line x1="${x + 14.6}" y1="5" x2="${x + 14.6}" y2="52" stroke="#fff" stroke-opacity="0.25" stroke-width="0.4"/>`;
+    }).join("")],
   // 雙鉤牙刷架 17 × 8 cm: cup with two arch-shaped holders.
   "accessory-22": [170, 80, p =>
     panel(p, 0, 0, 170, 80, 10) +
@@ -204,12 +217,13 @@ const DRAWINGS = {
     logo(p, 120, 16, 12)],
   // 餐具架 18 × 13.5 cm: two-compartment box with vents and dark base.
   "accessory-23": [180, 135, p =>
-    panel(p, 0, 0, 180, 126, 3) + `<rect x="2" y="0.5" width="176" height="3" fill="${p.inner}"/><rect x="89" y="0.5" width="2" height="3" fill="${p.edge}"/>` +
-    vents(p, 90, 88, 76, 6) + darkBase(1, 124, 178, 11)],
-  // 餐巾紙捲架 27 × 8 cm overall: 23 cm back plate plus the roll rod.
+    `<rect ${rr(1, 112, 178, 23, 9)} fill="url(#base)"/>` + panel(p, 0, 0, 180, 127, 12) + `<rect x="10" y="0.6" width="160" height="3" rx="1.5" fill="${p.inner}"/><rect x="89" y="0.6" width="2" height="3" fill="${p.edge}"/>` +
+    vents(p, 90, 88, 76, 6)],
+  // 餐巾紙捲架 27 × 8 cm overall (owner's photo): 23 cm plate flush right, flat roll bar reaching 4 cm past the left edge.
   "accessory-24": [270, 80, p =>
-    panel(p, 20, 0, 230, 74, 4) + logo(p, 30, 12) +
-    post(p, 0, 50, 26) + post(p, 266.8, 50, 26) + rod(p, 0, 74.8, 270)],
+    panel(p, 40, 0, 230, 80, 5) +
+    [0, 5.4, 10.8].map((d, i) => slot(p, 47 + (i === 1 ? 3.5 : 0), 9 + d, i === 1 ? 16 : 23, 2.6)).join("") +
+    lip(p, 0, 40, 270, 13, 5)],
 };
 
 const FILE_IDS = { hooks: "02", knife: "04", bottles: "15" };

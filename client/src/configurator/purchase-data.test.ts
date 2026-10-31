@@ -100,23 +100,22 @@ describe("購買清單匯出", () => {
     expect(text).toContain("尚未下單");
   });
 
-  it("自由調節收納架按左右一套兩支計算，並保留所選顏色", () => {
-    const threeUprights: Design = {
+  it("自由調節收納架每次排位就是一套（左右兩支），並保留所選顏色", () => {
+    const twoSets: Design = {
       ...plan("accessory-18", "charcoal"),
-      pieces: Array.from({ length: 3 }, (_, index) => ({
+      pieces: Array.from({ length: 2 }, (_, index) => ({
         id: `rack-${index}`,
         kind: "accessory-18" as const,
         finish: "charcoal" as const,
-        x: index * 100,
+        x: index * 300,
         y: 0,
       })),
     };
-    const text = purchaseListText(threeUprights);
-    expect(text).toContain("自由調節收納架（岩嶺暗灰）：2套／每套2入");
-    expect(text).toContain("已排位3個，購買合共4個，另有1個未排位");
-    expect(buildDIYCartSelection(threeUprights)[0]).toMatchObject({
+    const text = purchaseListText(twoSets);
+    expect(text).toContain("自由調節收納架（岩嶺暗灰）：2套");
+    expect(buildDIYCartSelection(twoSets)[0]).toMatchObject({
       sku: CATALOG["accessory-18"].skus.charcoal,
-      name: "自由調節收納架（岩嶺暗灰・2入）",
+      name: "自由調節收納架（岩嶺暗灰）",
       quantity: 2,
     });
   });

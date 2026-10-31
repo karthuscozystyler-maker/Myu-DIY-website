@@ -179,25 +179,18 @@ export default function Home() {
       setNotice(placementNotice(kind, design.board, orientation));
       return;
     }
-    // A 套 (e.g. the left/right adjustable rack) cannot be split, so add the whole set.
-    const count = CATALOG[kind].packUnit === "套" ? CATALOG[kind].packSize : 1;
-    if (design.pieces.length + count > 30) {
+    if (design.pieces.length >= 30) {
       setNotice("此布面最多可排 30 件配件。");
       return;
     }
-    let next = design;
-    let id = "";
-    for (let index = 0; index < count; index++) {
-      id = crypto.randomUUID();
-      next = {
-        ...next,
-        pieces: [
-          ...next.pieces,
-          { id, kind, finish, ...freePosition(next, kind) },
-        ],
-      };
-    }
-    commit(next);
+    const id = crypto.randomUUID();
+    commit({
+      ...design,
+      pieces: [
+        ...design.pieces,
+        { id, kind, finish, ...freePosition(design, kind) },
+      ],
+    });
     setSelected(id);
     setNotice(`已加入${CATALOG[kind].name}。`);
   }
