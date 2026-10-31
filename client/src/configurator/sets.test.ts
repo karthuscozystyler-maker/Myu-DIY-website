@@ -9,8 +9,9 @@ import {
 
 describe("preset sets", () => {
   it("deduplicates fixed compositions by series, board, and set number", () => {
-    expect(PRESET_SETS).toHaveLength(32);
-    expect(getSetsForSeries("kitchen")).toHaveLength(10);
+    // 廚房 38×70 Set 6 was withdrawn (its 42.5 cm coat rack is wider than the board).
+    expect(PRESET_SETS).toHaveLength(31);
+    expect(getSetsForSeries("kitchen")).toHaveLength(9);
     expect(getSetsForSeries("bathroom")).toHaveLength(10);
     expect(getSetsForSeries("entry")).toHaveLength(4);
     expect(getSetsForSeries("desk")).toHaveLength(8);
@@ -27,7 +28,8 @@ describe("preset sets", () => {
       { name: "鍋蓋架", quantity: 1 },
       { name: "六勾架", quantity: 1, kind: "hooks" },
     ]);
-    expect(kitchen?.variants).toHaveLength(24);
+    // 萬年曆 fabrics are not sold.
+    expect(kitchen?.variants).toHaveLength(22);
     expect(kitchen?.variants?.[0]).toMatchObject({
       patternName: "灰白格紋",
       sku: "myu-lego-s-gwp-set1",

@@ -32,11 +32,14 @@ import "./pages.css";
 
 const DEFAULT_PATTERN: Pattern = FABRICS[0]?.id ?? "plain";
 
+// Set prices are ready (set-prices.ts) but on hold at the owner's request.
+const SHOW_SET_PRICES = false;
+
 const money = (n: number) => `HK$${n.toLocaleString("en-HK")}`;
 
 /** Set price for the chosen fabric: 特價 with the 原價 struck through. */
 function SetPrice({ price }: { price: readonly [number, number] | undefined }) {
-  if (!price) return null;
+  if (!SHOW_SET_PRICES || !price) return null;
   return (
     <p className="set-price">
       <small>套裝價</small>
@@ -265,7 +268,7 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
               <p>
                 {s.composition.map(i => `${i.name} × ${i.quantity}`).join("、")}
               </p>
-              {lowestSetPrice(s) !== undefined && (
+              {SHOW_SET_PRICES && lowestSetPrice(s) !== undefined && (
                 <em className="set-card-price">
                   {money(lowestSetPrice(s)!)} 起
                 </em>
