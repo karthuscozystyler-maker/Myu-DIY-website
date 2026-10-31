@@ -22,12 +22,11 @@ const FINISHES = {
     light: "#F2EDE0",
     body: "#E8E2D2",
     low: "#DDD7C5",
-    edge: "#C9C3AF",
+    edge: "#B3AC95",
     side: "#BDB9AC",
     line: "#ACA690",
     slot: "#1C1C1B",
     inner: "#D3CBB4",
-    tanSlot: "#B9AD8F",
     base: "#1E1E1E",
     grain: 0.018,
   },
@@ -35,12 +34,11 @@ const FINISHES = {
     light: "#596064",
     body: "#4E5458",
     low: "#464C4F",
-    edge: "#3A3F42",
+    edge: "#2B2F31",
     side: "#33383A",
     line: "#2A2E30",
     slot: "#16191A",
     inner: "#3F4447",
-    tanSlot: "#16191A",
     base: "#1B1D1E",
     grain: 0.02,
   },
@@ -73,8 +71,8 @@ const defs = p => `
     <feComposite in2="SourceGraphic" operator="in"/>
   </filter>
   <filter id="drop" x="-10%" y="-10%" width="120%" height="140%">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="0.8"/><feOffset dy="0.9"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="1.2"/><feOffset dy="1.5"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
     <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
   </filter>
 </defs>`;
@@ -88,12 +86,12 @@ const panel = (p, x, y, w, h, r = 2.5, filter = "") =>
   <rect ${rr(x, y, w, h, r)} fill="url(#face)" filter="url(#grain)" opacity="0.9"/>
   <rect ${rr(x, y, w, h, r)} fill="url(#sides)"/>
   <rect ${rr(x + 0.35, y + 0.35, w - 0.7, h - 0.7, Math.max(0, r - 0.35))} fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="0.45"/>
-  <rect ${rr(x, y, w, h, r)} fill="none" stroke="${p.edge}" stroke-width="0.5"/>
+  <rect ${rr(x, y, w, h, r)} fill="none" stroke="${p.edge}" stroke-width="0.9"/>
   </g>`;
 /** A front-facing strip (shelf lip, tray front) that sits proud of the panel behind it. */
 const lip = (p, x, y, w, h, r = 1.5) =>
   `<g filter="url(#drop)"><rect ${rr(x, y, w, h, r)} fill="url(#lip)"/><rect ${rr(x, y, w, h, r)} fill="url(#sides)"/>
-  <rect ${rr(x, y, w, h, r)} fill="none" stroke="${p.edge}" stroke-width="0.45"/>
+  <rect ${rr(x, y, w, h, r)} fill="none" stroke="${p.edge}" stroke-width="0.8"/>
   <line x1="${x + r}" y1="${y + 0.4}" x2="${x + w - r}" y2="${y + 0.4}" stroke="#fff" stroke-opacity="0.45" stroke-width="0.4"/></g>`;
 /** A recessed opening: dark with a light lower bevel. */
 const slot = (p, x, y, w, h, fill = p.slot) =>
@@ -107,7 +105,7 @@ const vents = (p, cx, y, gw, gap = 4, fill) =>
   [-1, 1]
     .map(side => {
       const x = side < 0 ? cx - gap / 2 - gw : cx + gap / 2;
-      return slot(p, x, y, gw, 2.6, fill) + slot(p, x + gw * 0.12, y + 4.8, gw * 0.76, 2.6, fill) + slot(p, x, y + 9.6, gw, 2.6, fill);
+      return slot(p, x, y, gw, 3, fill) + slot(p, x + gw * 0.12, y + 7.4, gw * 0.76, 3, fill) + slot(p, x, y + 14.8, gw, 3, fill);
     })
     .join("");
 /** A hook tip seen from the front, hanging below a panel. */
@@ -150,9 +148,9 @@ const DRAWINGS = {
     panel(p, 0, 0, 205, 62, 6) +
     hook(p, 24, 56, 22, 7) + hook(p, 66, 56, 22, 7) +
     panel(p, 102, 6, 103, 74, 14, "drop") + knob(p, 150, 44, 9)],
-  // 單層平板置物架 25 × 8.7 cm
+  // 單層平板置物架 25 × 8.7 cm: 23 cm back plate centred on the 25 cm shelf.
   "accessory-07": [250, 87, p =>
-    panel(p, 0, 0, 250, 87, 6) + logo(p, 12, 12) + hole(p, 238, 26, 1.4) + lip(p, 0, 80, 250, 7, 1.5)],
+    panel(p, 10, 0, 230, 82, 6) + logo(p, 22, 12) + hole(p, 228, 26, 1.4) + lip(p, 0, 80, 250, 7, 1.5)],
   // 單格收納桶 12 × 9 cm: back plate behind a rounded cup with knob.
   "accessory-08": [120, 90, p =>
     panel(p, 4, 0, 112, 30, 6) + panel(p, 0, 10, 120, 80, 14, "drop") + knob(p, 88, 50, 9)],
@@ -170,10 +168,10 @@ const DRAWINGS = {
     panel(p, 0, 0, 100, 120, 6) + lip(p, 0, 102, 100, 18, 2.5)],
   // 方格收納架 短款 18 × 11 cm: back plate behind a vented front wall.
   "accessory-12": [180, 110, p =>
-    panel(p, 0, 0, 180, 110, 4) + lip(p, 0, 36, 180, 74, 3) + vents(p, 112, 78, 44, 5, p.tanSlot)],
+    panel(p, 0, 0, 180, 110, 4) + lip(p, 0, 36, 180, 74, 3) + vents(p, 112, 72, 46, 6)],
   // 方格收納架 長款 25 × 11.5 cm
   "accessory-13": [250, 115, p =>
-    panel(p, 0, 0, 250, 115, 4) + lip(p, 0, 38, 250, 77, 3) + vents(p, 160, 82, 60, 6, p.tanSlot)],
+    panel(p, 0, 0, 250, 115, 4) + lip(p, 0, 38, 250, 77, 3) + vents(p, 160, 76, 62, 6)],
   // 梳妝收納架 長款 21 × 9 cm: box with knob and an open end compartment.
   "accessory-14": [210, 90, p =>
     panel(p, 0, 0, 210, 90, 8) + `<rect ${rr(168, 6, 36, 78, 5)} fill="${p.inner}"/>` + panel(p, 0, 0, 166, 90, 8) + knob(p, 120, 50, 10)],
@@ -191,7 +189,7 @@ const DRAWINGS = {
   "accessory-19": [180, 120, p =>
     panel(p, 0, 0, 180, 120, 6) +
     `<g filter="url(#drop)"><path d="M3 34 L42 34 Q50 34 54 44 L62 62 Q66 70 74 70 L106 70 Q114 70 118 62 L126 44 Q130 34 138 34 L177 34 Q180 34 180 37 L180 117 Q180 120 177 120 L3 120 Q0 120 0 117 L0 37 Q0 34 3 34 Z" fill="url(#lip)" stroke="${p.edge}" stroke-width="0.45"/></g>` +
-    vents(p, 90, 88, 52, 6, p.tanSlot)],
+    vents(p, 90, 84, 56, 6)],
   // 長方開放置物架 10 × 25 cm: tall back plate, bottom shelf.
   "accessory-20": [100, 250, p =>
     panel(p, 0, 0, 100, 250, 4) + hole(p, 50, 16, 1.6) + lip(p, 0, 243, 100, 7, 1.5)],
@@ -207,7 +205,7 @@ const DRAWINGS = {
   // 餐具架 18 × 13.5 cm: two-compartment box with vents and dark base.
   "accessory-23": [180, 135, p =>
     panel(p, 0, 0, 180, 126, 3) + `<rect x="2" y="0.5" width="176" height="3" fill="${p.inner}"/><rect x="89" y="0.5" width="2" height="3" fill="${p.edge}"/>` +
-    vents(p, 90, 92, 72, 6) + darkBase(1, 124, 178, 11)],
+    vents(p, 90, 88, 76, 6) + darkBase(1, 124, 178, 11)],
   // 餐巾紙捲架 27 × 8 cm overall: 23 cm back plate plus the roll rod.
   "accessory-24": [270, 80, p =>
     panel(p, 20, 0, 230, 74, 4) + logo(p, 30, 12) +

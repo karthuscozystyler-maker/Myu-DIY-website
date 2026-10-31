@@ -48,6 +48,12 @@ export default function PieceArt({
           y={(h - imageHeight) / 2}
           width={imageWidth}
           height={imageHeight}
+          // A soft cast shadow lifts the piece off busy fabric patterns.
+          shadowColor="#000"
+          shadowOpacity={0.4}
+          shadowBlur={10}
+          shadowOffsetX={2}
+          shadowOffsetY={5}
         />
       </Group>
     );
