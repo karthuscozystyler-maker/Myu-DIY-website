@@ -60,7 +60,7 @@ describe("received full catalog", () => {
     }
   });
 
-  it("rectifies every accessory photo to the catalog's real size (4 px per mm)", () => {
+  it("renders every accessory front view at the catalog's real size (4 px per mm)", () => {
     // Extended WebP (VP8X, with transparency) stores width-1 and height-1 as 24-bit
     // values; plain lossy WebP (VP8, fully opaque) stores 14-bit sizes in its frame header.
     const webpSize = (file: string) => {
@@ -71,8 +71,11 @@ describe("received full catalog", () => {
       expect(chunk).toBe("VP8 ");
       return [bytes.readUInt16LE(26) & 0x3fff, bytes.readUInt16LE(28) & 0x3fff];
     };
+    // The tin photo and the three originally approved front views keep their own
+    // pixel sizes; the canvas fits them inside the real footprint without stretching.
+    const approved = new Set(["tin", "hooks", "knife", "bottles"]);
     for (const [id, item] of Object.entries(ACCESSORY_DATA)) {
-      if (id === "tin") continue;
+      if (approved.has(id)) continue;
       for (const src of [
         PRODUCT_IMAGES[id as keyof typeof PRODUCT_IMAGES],
         CHARCOAL_IMAGES[id as keyof typeof CHARCOAL_IMAGES],
