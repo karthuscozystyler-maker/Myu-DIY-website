@@ -219,11 +219,11 @@ const DRAWINGS = {
   "accessory-23": [180, 135, p =>
     `<rect ${rr(1, 112, 178, 23, 9)} fill="url(#base)"/>` + panel(p, 0, 0, 180, 127, 12) + `<rect x="10" y="0.6" width="160" height="3" rx="1.5" fill="${p.inner}"/><rect x="89" y="0.6" width="2" height="3" fill="${p.edge}"/>` +
     vents(p, 90, 88, 76, 6)],
-  // 餐巾紙捲架 27 × 8 cm overall (owner's photo): 23 cm plate flush right, flat roll bar reaching 4 cm past the left edge.
+  // 餐巾紙捲架 27 × 8 cm overall (owner's photo): 23 cm plate flush right, flat roll bar across the middle reaching 4 cm past the left edge.
   "accessory-24": [270, 80, p =>
     panel(p, 40, 0, 230, 80, 5) +
     [0, 5.4, 10.8].map((d, i) => slot(p, 47 + (i === 1 ? 3.5 : 0), 9 + d, i === 1 ? 16 : 23, 2.6)).join("") +
-    lip(p, 0, 40, 270, 13, 5)],
+    lip(p, 0, 33.5, 270, 13, 5)],
 };
 
 const FILE_IDS = { hooks: "02", knife: "04", bottles: "15" };
