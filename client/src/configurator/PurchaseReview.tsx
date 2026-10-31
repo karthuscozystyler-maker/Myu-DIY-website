@@ -9,6 +9,8 @@ import {
   getBoard,
   summary,
   type Design,
+  hasFinishChoice,
+  packUnit,
 } from "./model";
 import { buildDIYCartSelection } from "./cart-plan";
 import CartActions from "./CartActions";
@@ -96,8 +98,9 @@ export default function PurchaseReview({
                     <strong>{item.name}</strong>
                     {packed ? (
                       <small>
+                        {hasFinishChoice(item) ? `${colorName(row.finish)} · ` : ""}
                         已排位 {row.quantity} 個 · 購買 {row.purchaseQuantity}{" "}
-                        盒（共 {row.includedQuantity} 個）
+                        {packUnit(item)}（共 {row.includedQuantity} 個）
                         {row.unplacedQuantity > 0
                           ? ` · 餘 ${row.unplacedQuantity} 個未排位`
                           : " · 無餘數"}

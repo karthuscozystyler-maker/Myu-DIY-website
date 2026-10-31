@@ -15,6 +15,8 @@ import {
   type Finish,
   type PieceKind,
   type Series,
+  hasFinishChoice,
+  packUnit,
 } from "./model";
 
 type Props = {
@@ -174,7 +176,9 @@ export default function CatalogDock({
                   const price = getAccessoryPrice(kind, productFinish);
                   const priceText = priceLabel(price);
                   const unit =
-                    item.packSize > 1 ? `／${item.packSize}入盒` : "／件";
+                    item.packSize > 1
+                      ? `／${item.packSize}入${packUnit(item)}`
+                      : "／件";
                   return (
                     <button
                       key={kind}

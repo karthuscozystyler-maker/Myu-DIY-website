@@ -1,5 +1,5 @@
 import { getFabric } from "./fabrics";
-import { CATALOG, summary, type Design } from "./model";
+import { CATALOG, hasFinishChoice, summary, type Design } from "./model";
 import { getSetVariant, type PresetSet } from "./sets";
 
 export type CartSelectionLine = {
@@ -20,8 +20,12 @@ function accessoryName(
   item: (typeof CATALOG)[keyof typeof CATALOG],
   finish: "cream" | "charcoal"
 ) {
-  if (item.packSize > 1) return `${item.name}（${item.packSize}入）`;
-  return `${item.name}${finish === "charcoal" ? "（岩嶺暗灰）" : "（奶油米白）"}`;
+  const colour = finish === "charcoal" ? "岩嶺暗灰" : "奶油米白";
+  if (item.packSize > 1)
+    return hasFinishChoice(item)
+      ? `${item.name}（${colour}・${item.packSize}入）`
+      : `${item.name}（${item.packSize}入）`;
+  return `${item.name}（${colour}）`;
 }
 
 export function buildDIYCartSelection(design: Design): CartSelectionLine[] {

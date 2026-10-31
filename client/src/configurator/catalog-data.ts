@@ -352,8 +352,9 @@ export const ACCESSORY_DATA = {
       cream: 148,
       charcoal: 148,
     },
-    description: "每套兩支，可按需要調節間距；畫布上一支代表一支實物。",
+    description: "每套左右兩支，可按需要調節間距；畫布上一支代表一支實物。",
     packSize: 2,
+    packUnit: "套",
     series: ["desk"],
     skus: {
       cream: "myu-lego-adjustrack-wh",

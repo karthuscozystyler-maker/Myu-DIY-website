@@ -8,6 +8,7 @@ import {
   type Finish,
   type PieceKind,
 } from "./model";
+import { buildDIYCartSelection } from "./cart-plan";
 import { exportPlan, purchaseListText } from "./purchase-data";
 
 const kinds = Object.keys(CATALOG) as PieceKind[];
@@ -97,6 +98,27 @@ describe("購買清單匯出", () => {
     expect(text).toContain("已排位5個，購買合共8個，另有3個未排位");
     expect(text).toContain("圖片與排位供參考，安裝以商品說明為準");
     expect(text).toContain("尚未下單");
+  });
+
+  it("自由調節收納架按左右一套兩支計算，並保留所選顏色", () => {
+    const threeUprights: Design = {
+      ...plan("accessory-18", "charcoal"),
+      pieces: Array.from({ length: 3 }, (_, index) => ({
+        id: `rack-${index}`,
+        kind: "accessory-18" as const,
+        finish: "charcoal" as const,
+        x: index * 100,
+        y: 0,
+      })),
+    };
+    const text = purchaseListText(threeUprights);
+    expect(text).toContain("自由調節收納架（岩嶺暗灰）：2套／每套2入");
+    expect(text).toContain("已排位3個，購買合共4個，另有1個未排位");
+    expect(buildDIYCartSelection(threeUprights)[0]).toMatchObject({
+      sku: CATALOG["accessory-18"].skus.charcoal,
+      name: "自由調節收納架（岩嶺暗灰・2入）",
+      quantity: 2,
+    });
   });
 
   it("没有已排位配件时不会建立购买清单", () => {

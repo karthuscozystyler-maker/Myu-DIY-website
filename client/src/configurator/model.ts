@@ -36,12 +36,19 @@ export type CatalogItem = {
   prices: Readonly<Record<Finish, number | null>>;
   description: string;
   packSize: number;
+  /** Selling unit for multi-piece packs; the tin is a 盒, the adjustable rack a 套. */
+  packUnit?: "盒" | "套";
   series: readonly Series[];
   skus: Readonly<Record<Finish, string | null>>;
 };
 
 export const CATALOG: Readonly<Record<AccessoryId, CatalogItem>> =
   ACCESSORY_DATA;
+
+export const packUnit = (item: CatalogItem) => item.packUnit ?? "盒";
+/** The tin is one SKU for both finishes; every other item is sold per colour. */
+export const hasFinishChoice = (item: CatalogItem) =>
+  item.skus.cream !== item.skus.charcoal;
 
 export const SERIES = [
   { id: "entry", label: "玄關系列" },
