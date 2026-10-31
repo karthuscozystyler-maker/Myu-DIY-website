@@ -2,9 +2,11 @@ import {
   CATALOG,
   accessoryTotal,
   canReviewDesign,
+  fabricPrice,
   getAccessoryPrice,
   getBoard,
   summary,
+  total,
   type Design,
   hasFinishChoice,
   packUnit,
@@ -29,7 +31,6 @@ export function exportPlan(design: Design) {
       width: board.width,
       height: board.height,
       label: board.label,
-      price: board.price,
     },
     summary: summary(design).map(row => {
       const item = CATALOG[row.kind];
@@ -42,7 +43,8 @@ export function exportPlan(design: Design) {
       };
     }),
     accessorySubtotal: accessoryTotal(design),
-    boardPrice: board.price,
+    boardPrice: fabricPrice(design),
+    total: total(design),
     livePriceVerified: false,
     currency: "HKD",
     unit: "mm",
@@ -59,7 +61,7 @@ export function purchaseListText(design: Design) {
   const fabric = getFabric(design.pattern);
   const lines = [
     "沐幕引磁收納DIY 購買清單（尚未下單）",
-    `${fabric.name}引磁布 ${board.label} ${orientationName(design)} × 1件；布價另計`,
+    `${fabric.name}引磁布 ${board.label} ${orientationName(design)} × 1件；${priceText(fabricPrice(design))}`,
     "",
   ];
   for (const row of summary(design)) {
@@ -78,10 +80,12 @@ export function purchaseListText(design: Design) {
   }
 
   const subtotal = accessoryTotal(design);
+  const sum = total(design);
   lines.push(
     "",
     `配件預估金額：${subtotal === null ? "價格待確認" : money(subtotal)}`,
-    "此清單尚未下單；布價另計。",
+    `連引磁布預估合共：${sum === null ? "價格待確認" : money(sum)}`,
+    "此清單尚未下單。",
     "圖片與排位供參考，安裝以商品說明為準。"
   );
   return `${lines.join("\n")}\n`;

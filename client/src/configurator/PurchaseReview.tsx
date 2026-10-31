@@ -5,6 +5,8 @@ import { getFabric } from "./fabrics";
 import {
   CATALOG,
   accessoryTotal,
+  fabricPrice,
+  total,
   getAccessoryPrice,
   getBoard,
   summary,
@@ -74,7 +76,7 @@ export default function PurchaseReview({
                 {board.label} · {orientation} · 1 張
               </small>
             </div>
-            <span>布價另計</span>
+            <span>{priceLabel(fabricPrice(design))}</span>
           </div>
           {rows.length === 0 ? (
             <p className="planner-review-empty">
@@ -119,9 +121,10 @@ export default function PurchaseReview({
           )}
           <div className="planner-review-subtotal">
             <span>
-              配件預估小計<small>布價另計</small>
+              預估合共
+              <small>配件 {priceLabel(accessoryTotal(design))} + 引磁布 {priceLabel(fabricPrice(design))}</small>
             </span>
-            <strong>{priceLabel(accessoryTotal(design))}</strong>
+            <strong>{priceLabel(total(design))}</strong>
           </div>
           <p className="planner-review-limitation">
             價格、優惠及庫存以購物車為準。加入購物車後仍需完成結帳；圖片與排位只供參考。

@@ -197,3 +197,27 @@ describe("cart writes use mocked transport only", () => {
     ).toBe(true);
   });
 });
+
+describe("cart API settings from the SHOPLINE snippet", () => {
+  it("uses data-cart-api and data-cart-handles when the snippet sets them", async () => {
+    const urls: string[] = [];
+    const request = vi.fn(async (url: string | URL | Request) => {
+      urls.push(String(url));
+      return String(url).endsWith("/add") ? response({ ok: true }) : response(catalog());
+    }) as unknown as typeof fetch;
+    (globalThis as { window?: unknown }).window = {
+      __MYU_CART__: { api: "https://cart.example.test/", handles: ["myumyu-cloth", "myumyu-bath-set"] },
+    };
+    try {
+      const client = createCartClient({ request, context, storage: undefined });
+      expect((await client.add(lines)).status).toBe("success");
+      expect(urls.slice(0, 2)).toEqual([
+        "https://cart.example.test/api/kit/myumyu-cloth",
+        "https://cart.example.test/api/kit/myumyu-bath-set",
+      ]);
+      expect(urls.at(-1)).toBe("https://cart.example.test/api/kit/add");
+    } finally {
+      delete (globalThis as { window?: unknown }).window;
+    }
+  });
+});

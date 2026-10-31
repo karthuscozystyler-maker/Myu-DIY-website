@@ -10,6 +10,7 @@ import {
 } from "./model";
 import { buildDIYCartSelection } from "./cart-plan";
 import { exportPlan, purchaseListText } from "./purchase-data";
+import { getFabricPrice } from "./fabrics";
 
 const kinds = Object.keys(CATALOG) as PieceKind[];
 const fabricId = Object.keys(FABRIC_DATA)[0]! as FabricId;
@@ -60,12 +61,14 @@ describe("購買清單匯出", () => {
       unplacedQuantity: 3,
       referenceUnitPrice: CATALOG.tin.prices.cream,
     });
-    expect(data.boardPrice).toBeNull();
+    // EMPTY_DESIGN is a 70×100 board of an ordinary fabric: 特價 598.
+    expect(data.boardPrice).toBe(598);
+    expect(data.total).toBe(2 * CATALOG.tin.prices.cream! + 598);
     expect(data.livePriceVerified).toBe(false);
     expect(data.unit).toBe("mm");
   });
 
-  it("收到的公开价格会写入JSON及文字清单，而不伪造布价", () => {
+  it("文字清單包括配件價、引磁布價及合共", () => {
     const design = plan("hooks", "charcoal");
     const data = exportPlan(design);
     const text = purchaseListText(design);
@@ -75,8 +78,16 @@ describe("購買清單匯出", () => {
     });
     expect(data.accessorySubtotal).toBe(CATALOG.hooks.prices.charcoal);
     expect(text).toContain(`預估金額 HK$${CATALOG.hooks.prices.charcoal}`);
-    expect(text).toContain("布價另計");
+    expect(text).toContain("引磁布 70 × 100 cm 直放 × 1件；預估金額 HK$598");
+    expect(text).toContain(`連引磁布預估合共：HK$${CATALOG.hooks.prices.charcoal! + 598}`);
     expect(text).toContain("尚未下單");
+  });
+
+  it("引磁布價：所有布同價，奶茶小方磚另計", () => {
+    expect(getFabricPrice("fabric-gwp", "small")).toEqual([418, 288]);
+    expect(getFabricPrice("fabric-gy", "large")).toEqual([838, 598]);
+    expect(getFabricPrice("fabric-grid", "small")).toEqual([468, 328]);
+    expect(getFabricPrice("fabric-grid", "large")).toEqual([948, 678]);
   });
 
   it("可读清单仍包含来源布名、方向、包装说明和非下单提示", () => {

@@ -102,6 +102,13 @@ function mountEmbed() {
   if (!host) return;
 
   try {
+    // Optional cart settings on the snippet, read before the host is emptied.
+    const { cartApi, cartHandles } = host.dataset;
+    if (cartApi || cartHandles)
+      window.__MYU_CART__ = {
+        api: cartApi?.trim() || undefined,
+        handles: cartHandles?.split(",").map(h => h.trim()).filter(Boolean),
+      };
     const cssText = readEmbedCss(host);
     host.replaceChildren();
 

@@ -1,8 +1,23 @@
 import { selectionKey, type CartSelectionLine } from "./cart-plan";
 
+declare global {
+  interface Window {
+    /** Set from the SHOPLINE snippet: <div data-myu-embed data-cart-api data-cart-handles> */
+    __MYU_CART__?: { api?: string; handles?: string[] };
+  }
+}
+
+// Defaults: the merchant's existing kit API and the SHOPLINE products it already knows.
+// The snippet can override both without rebuilding (see deliverables/API-接駁說明.md).
 export const CART_API = "https://cozystyle-xsddw2az.manus.space";
-// Public handles already verified against the merchant's deployed kit API.
 export const CART_CATALOG_HANDLES = ["myumyu-lego-set-2", "myumyu-lego-set-1"];
+const cartApi = () =>
+  (typeof window !== "undefined" && window.__MYU_CART__?.api?.replace(/\/+$/, "")) ||
+  CART_API;
+const cartHandles = () =>
+  (typeof window !== "undefined" && window.__MYU_CART__?.handles?.length
+    ? window.__MYU_CART__.handles
+    : CART_CATALOG_HANDLES);
 export type CartResult = {
   status: "success" | "error" | "partial" | "uncertain";
   message: string;
@@ -150,7 +165,7 @@ function safeSessionStorage(): Storage | undefined {
 export function createCartClient({
   request = fetch,
   context = merchantCartContext,
-  handles = CART_CATALOG_HANDLES,
+  handles,
   storage = safeSessionStorage(),
 }: {
   request?: typeof fetch;
@@ -222,9 +237,9 @@ export function createCartClient({
     try {
       progress("確認商品中…");
       const catalogs = await Promise.all(
-        handles.map(async handle => {
+        (handles ?? cartHandles()).map(async handle => {
           const response = await timedRequest(
-            `${CART_API}/api/kit/${encodeURIComponent(handle)}`,
+            `${cartApi()}/api/kit/${encodeURIComponent(handle)}`,
             { method: "GET", credentials: "omit" }
           );
           if (!response.ok)
@@ -264,7 +279,7 @@ export function createCartClient({
         let response: Response;
         let data: unknown;
         try {
-          response = await timedRequest(`${CART_API}/api/kit/add`, {
+          response = await timedRequest(`${cartApi()}/api/kit/add`, {
             method: "POST",
             credentials: "omit",
             headers: { "Content-Type": "application/json" },

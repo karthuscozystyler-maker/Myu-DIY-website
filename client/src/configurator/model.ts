@@ -1,6 +1,6 @@
 import { ACCESSORY_DATA, type AccessoryId } from "./catalog-data";
 import { FABRIC_DATA, type FabricId } from "./fabric-data";
-import { getFabric } from "./fabrics";
+import { getFabric, getFabricPrice } from "./fabrics";
 
 export type PieceKind = AccessoryId;
 export type Finish = "cream" | "charcoal";
@@ -69,10 +69,10 @@ export function getSeriesItems(series: Series | null): PieceKind[] {
 
 export const BOARDS: Record<
   BoardKind,
-  { width: number; height: number; label: string; price: null }
+  { width: number; height: number; label: string }
 > = {
-  large: { width: 700, height: 1000, label: "70 × 100 cm", price: null },
-  small: { width: 380, height: 700, label: "38 × 70 cm", price: null },
+  large: { width: 700, height: 1000, label: "70 × 100 cm" },
+  small: { width: 380, height: 700, label: "38 × 70 cm" },
 };
 
 export function getBoard(design: Pick<Design, "board" | "orientation">) {
@@ -83,7 +83,6 @@ export function getBoard(design: Pick<Design, "board" | "orientation">) {
     width: board.height,
     height: board.width,
     label: `${board.height / 10} × ${board.width / 10} cm`,
-    price: board.price,
   };
 }
 
@@ -302,12 +301,17 @@ export function canReviewDesign(design: Design): boolean {
   );
 }
 
+/** 引磁布 特價 for the design's fabric and size. */
+export function fabricPrice(design: Design): number {
+  return getFabricPrice(design.pattern, design.board)[1];
+}
+
+/** Accessories plus the fabric; null until at least one accessory is placed. */
 export function total(design: Design): number | null {
-  const boardPrice = getBoard(design).price;
   const accessories = accessoryTotal(design);
-  return boardPrice === null || accessories === null
+  return accessories === null || !design.pieces.length
     ? null
-    : boardPrice + accessories;
+    : accessories + fabricPrice(design);
 }
 
 export function freePosition(

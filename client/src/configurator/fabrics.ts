@@ -33,4 +33,26 @@ export function getFabric(value: string): Fabric {
   );
 }
 
+/**
+ * 引磁布 prices from the owner's sheet ("2 磁吸布"), [原價, 特價] in HKD.
+ * Every fabric shares one price per size except 奶茶小方磚.
+ */
+const FABRIC_PRICES: Readonly<Record<"small" | "large", readonly [number, number]>> = {
+  small: [418, 288],
+  large: [838, 598],
+};
+const FABRIC_PRICE_OVERRIDES: Partial<
+  Record<FabricId, Readonly<Record<"small" | "large", readonly [number, number]>>>
+> = {
+  "fabric-grid": { small: [468, 328], large: [948, 678] },
+};
+
+export function getFabricPrice(
+  value: string,
+  board: "small" | "large"
+): readonly [number, number] {
+  const { id } = getFabric(value);
+  return (FABRIC_PRICE_OVERRIDES[id] ?? FABRIC_PRICES)[board];
+}
+
 export type { FabricId } from "./fabric-data";

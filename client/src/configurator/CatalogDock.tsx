@@ -25,6 +25,8 @@ type Props = {
   seriesOpen: boolean;
   finish: Finish;
   subtotal: number | null;
+  /** e.g. "已包括引磁布 HK$288" */
+  fabricNote: string;
   canReview: boolean;
   onSeriesChange: (series: Series) => void;
   onSeriesOpenChange: (open: boolean) => void;
@@ -43,6 +45,7 @@ export default function CatalogDock({
   seriesOpen,
   finish,
   subtotal,
+  fabricNote,
   canReview,
   onSeriesChange,
   onSeriesOpenChange,
@@ -233,9 +236,9 @@ export default function CatalogDock({
 
       <div className="planner-catalog-summary">
         <div>
-          <span>配件預估小計</span>
+          <span>預估合共</span>
           <strong>{priceLabel(subtotal)}</strong>
-          <small>布價另計</small>
+          <small>{fabricNote}</small>
         </div>
         <button
           ref={reviewTrigger}

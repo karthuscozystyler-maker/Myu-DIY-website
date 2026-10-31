@@ -12,7 +12,8 @@ import {
   CATALOG,
   EMPTY_DESIGN,
   SERIES,
-  accessoryTotal,
+  fabricPrice,
+  total,
   canPlacePiece,
   canReviewDesign,
   changeOrientation,
@@ -282,7 +283,8 @@ export default function Home() {
     setReview(true);
   }
 
-  const accessorySubtotal = accessoryTotal(design);
+  const designTotal = total(design);
+  const fabricNote = `已包括引磁布 HK$${fabricPrice(design).toLocaleString("en-HK")}`;
 
   return (
     <div className="planner-app">
@@ -436,7 +438,8 @@ export default function Home() {
             series={series}
             seriesOpen={seriesOpen}
             finish={finish}
-            subtotal={accessorySubtotal}
+            subtotal={designTotal}
+            fabricNote={fabricNote}
             canReview={canReview}
             onSeriesChange={setSeries}
             onSeriesOpenChange={setSeriesOpen}
