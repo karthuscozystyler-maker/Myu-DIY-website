@@ -13,7 +13,7 @@ import { FABRIC_DATA } from "./fabric-data";
 import { canPlacePiece } from "./model";
 import { DETAIL_MEDIA } from "./detail-media";
 
-const HOSTED_IMAGE = /^\/products\/[\w-]+\.webp$/;
+const HOSTED_IMAGE = /^\/products\/[\w-]+\.(?:webp|svg)$/;
 const publicDir = path.resolve(import.meta.dirname, "../../public");
 
 describe("received full catalog", () => {
@@ -60,8 +60,30 @@ describe("received full catalog", () => {
     }
   });
 
-  it("keeps the one unverified-width product visible but blocks unsafe placement", () => {
-    expect(ACCESSORY_DATA["accessory-18"].dimensionsVerified).toBe(false);
-    expect(canPlacePiece("accessory-18", "large", "portrait")).toBe(false);
+  it("draws every accessory front view at the catalog's real proportions", () => {
+    for (const [id, item] of Object.entries(ACCESSORY_DATA)) {
+      if (id === "tin") continue;
+      for (const src of [
+        PRODUCT_IMAGES[id as keyof typeof PRODUCT_IMAGES],
+        CHARCOAL_IMAGES[id as keyof typeof CHARCOAL_IMAGES],
+      ]) {
+        expect(src).toMatch(/-front\.svg$/);
+        const viewBox = fs
+          .readFileSync(path.join(publicDir, src), "utf8")
+          .match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
+        expect(viewBox?.slice(1).map(Number)).toEqual([
+          item.width,
+          item.height,
+        ]);
+      }
+    }
+  });
+
+  it("places the adjustable rack as single 5.5 × 25 cm uprights sold in pairs", () => {
+    const rack = ACCESSORY_DATA["accessory-18"];
+    expect(rack.dimensionsVerified).toBe(true);
+    expect([rack.width, rack.height, rack.packSize]).toEqual([55, 250, 2]);
+    expect(canPlacePiece("accessory-18", "small", "portrait")).toBe(true);
+    expect(canPlacePiece("accessory-18", "small", "landscape")).toBe(true);
   });
 });

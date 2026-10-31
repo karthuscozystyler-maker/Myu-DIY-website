@@ -205,15 +205,15 @@ describe("收納牆配置模型", () => {
       )
     ).toBeNull();
 
-    const blocked = kinds.find(kind => !canPlacePiece(kind, "large"));
-    expect(blocked).toBeDefined();
+    // Every received accessory now has verified dimensions; unknown kinds must still be rejected.
+    expect(kinds.every(kind => canPlacePiece(kind, "large"))).toBe(true);
     expect(
       parseDesign(
         JSON.stringify({
           version: 2,
           board: "large",
           pattern: fabricIds[0],
-          pieces: [piece("unverified", blocked!, 0, 0)],
+          pieces: [piece("unknown", "not-a-kind" as PieceKind, 0, 0)],
         })
       )
     ).toBeNull();
@@ -277,13 +277,17 @@ describe("收納牆配置模型", () => {
   });
 
   it("拒绝不能容纳现有配件的缩放或旋转，并保留原设计对象", () => {
-    const blocked = kinds.find(
-      kind => !canPlacePiece(kind, "small", "portrait")
+    // 隱形六勾衣帽架 is 42.5 cm wide: it fits the 70 cm side but not a 38 cm-wide board.
+    const wide = kinds.find(
+      kind =>
+        !canPlacePiece(kind, "small", "portrait") &&
+        canPlacePiece(kind, "small", "landscape")
     );
-    expect(blocked).toBeDefined();
-    const source = design([piece("blocked", blocked!, 0, 0)]);
+    expect(wide).toBeDefined();
+    const source = design([piece("wide", wide!, 0, 0)]);
     expect(resizeBoard(source, "small")).toBe(source);
-    expect(changeOrientation(source, "landscape")).toBe(source);
+    const small = { ...source, board: "small" as const, orientation: "landscape" as const };
+    expect(changeOrientation(small, "portrait")).toBe(small);
   });
 
   it("正常缩放、旋转、碰撞和可用位置保留既有公共接口", () => {
