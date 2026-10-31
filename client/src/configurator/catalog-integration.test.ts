@@ -13,7 +13,7 @@ import { FABRIC_DATA } from "./fabric-data";
 import { canPlacePiece } from "./model";
 import { DETAIL_MEDIA } from "./detail-media";
 
-const HOSTED_IMAGE = /^\/products\/[\w-]+\.(?:webp|svg)$/;
+const HOSTED_IMAGE = /^\/products\/[\w-]+\.webp$/;
 const publicDir = path.resolve(import.meta.dirname, "../../public");
 
 describe("received full catalog", () => {
@@ -60,20 +60,27 @@ describe("received full catalog", () => {
     }
   });
 
-  it("draws every accessory front view at the catalog's real proportions", () => {
+  it("rectifies every accessory photo to the catalog's real size (4 px per mm)", () => {
+    // Extended WebP (VP8X, with transparency) stores width-1 and height-1 as 24-bit
+    // values; plain lossy WebP (VP8, fully opaque) stores 14-bit sizes in its frame header.
+    const webpSize = (file: string) => {
+      const bytes = fs.readFileSync(file);
+      const chunk = bytes.toString("ascii", 12, 16);
+      if (chunk === "VP8X")
+        return [bytes.readUIntLE(24, 3) + 1, bytes.readUIntLE(27, 3) + 1];
+      expect(chunk).toBe("VP8 ");
+      return [bytes.readUInt16LE(26) & 0x3fff, bytes.readUInt16LE(28) & 0x3fff];
+    };
     for (const [id, item] of Object.entries(ACCESSORY_DATA)) {
       if (id === "tin") continue;
       for (const src of [
         PRODUCT_IMAGES[id as keyof typeof PRODUCT_IMAGES],
         CHARCOAL_IMAGES[id as keyof typeof CHARCOAL_IMAGES],
       ]) {
-        expect(src).toMatch(/-front\.svg$/);
-        const viewBox = fs
-          .readFileSync(path.join(publicDir, src), "utf8")
-          .match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
-        expect(viewBox?.slice(1).map(Number)).toEqual([
-          item.width,
-          item.height,
+        expect(src).toMatch(/-front\.webp$/);
+        expect(webpSize(path.join(publicDir, src))).toEqual([
+          item.width * 4,
+          item.height * 4,
         ]);
       }
     }

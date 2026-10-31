@@ -150,7 +150,7 @@ for (const folder of ["products", "content"]) {
   const from = path.join(root, "client/public", folder);
   fs.mkdirSync(path.join(site, folder), { recursive: true });
   for (const file of fs.readdirSync(from)) {
-    if (/\.(?:webp|jpg|svg)$/i.test(file))
+    if (/\.(?:webp|jpg)$/i.test(file))
       fs.copyFileSync(path.join(from, file), path.join(site, folder, file));
   }
 }
