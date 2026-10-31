@@ -6,6 +6,7 @@
 //   docs/index.html       preview page that embeds the runtime like SHOPLINE does
 //   deliverables/myu-shopline-cart-ready.html   short loader to paste into SHOPLINE
 //   deliverables/myu-complete.html              offline backup (code inline, images hosted)
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { build } from "esbuild";
@@ -125,6 +126,17 @@ for (const directory of packages) {
     );
 }
 
+// Images are fetched with ?v=<this hash>, so a browser can never pair a cached
+// runtime with newer images (or the reverse) after a republish.
+const versionHash = crypto.createHash("sha256").update(javascript).update(css);
+for (const folder of ["products", "content"])
+  for (const file of fs.readdirSync(path.join(root, "client/public", folder)).sort())
+    if (/\.(?:webp|jpg)$/i.test(file))
+      versionHash
+        .update(file)
+        .update(fs.readFileSync(path.join(root, "client/public", folder, file)));
+const assetVersion = versionHash.digest("hex").slice(0, 10);
+
 // The runtime finds its own [data-myu-embed] host, hands the CSS to the app
 // (which moves it into a ShadowRoot) and loads images from its own folder.
 const runtime =
@@ -134,6 +146,7 @@ const runtime =
   "var host=(current&&current.closest('[data-myu-embed]'))||document.querySelector('[data-myu-embed]');\n" +
   "if(!host||host.shadowRoot)return;\n" +
   "if(!window.__MYU_ASSET_BASE__&&current&&current.src)window.__MYU_ASSET_BASE__=new URL('.',current.src).href;\n" +
+  `window.__MYU_ASSET_VERSION__=${JSON.stringify(assetVersion)};\n` +
   "var css=document.createElement('script');\n" +
   "css.type='text/myu-css';\n" +
   `css.textContent=${JSON.stringify(css)};\n` +
@@ -185,5 +198,5 @@ fs.writeFileSync(
 );
 
 console.log(
-  `Runtime ${fs.statSync(path.join(site, RUNTIME_FILE)).size} bytes -> docs/${RUNTIME_FILE}; loader points to ${PUBLIC_BASE}${RUNTIME_FILE}`
+  `Runtime ${fs.statSync(path.join(site, RUNTIME_FILE)).size} bytes (assets v=${assetVersion}) -> docs/${RUNTIME_FILE}; loader points to ${PUBLIC_BASE}${RUNTIME_FILE}`
 );

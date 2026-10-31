@@ -2,6 +2,8 @@ declare global {
   interface Window {
     /** Set by the SHOPLINE runtime to the folder it was loaded from. */
     __MYU_ASSET_BASE__?: string;
+    /** Set by the SHOPLINE runtime: a build hash so cached images never outlive their runtime. */
+    __MYU_ASSET_VERSION__?: string;
   }
 }
 
@@ -15,5 +17,7 @@ export function assetUrl(file: string): string {
     (typeof window !== "undefined" && window.__MYU_ASSET_BASE__) ||
     import.meta.env.BASE_URL ||
     "/";
-  return base.replace(/\/?$/, "/") + file;
+  const version =
+    typeof window !== "undefined" ? window.__MYU_ASSET_VERSION__ : undefined;
+  return base.replace(/\/?$/, "/") + file + (version ? `?v=${version}` : "");
 }
