@@ -1,4 +1,6 @@
+import type { AccessoryId } from "./catalog-data";
 import type { Finish, Series } from "./model";
+import { SET_PRICES } from "./set-prices";
 
 export type SetCompositionItem = {
   name: string;
@@ -1354,6 +1356,49 @@ export function getSetVariant(
     variant => variant.patternName === patternName && variant.sku.trim()
   );
   return matches?.length === 1 ? matches[0] : undefined;
+}
+
+/**
+ * Set sheets use their own short names. 方格收納架 alone is the short version:
+ * the kitchen set prices only add up with its 原價 (258), not the long one (298).
+ */
+const SET_ITEM_KINDS: Readonly<Record<string, AccessoryId>> = {
+  公仔展示收納架: "accessory-01",
+  六勾架: "hooks",
+  六連勾雙層置物架: "accessory-03",
+  刀架: "knife",
+  可調節雙層平板置物架: "accessory-05",
+  吹風機架: "accessory-06",
+  單層平板置物架: "accessory-07",
+  單格收納桶: "accessory-08",
+  四格筆筒收納架: "accessory-09",
+  多功能雙桿架: "accessory-10",
+  手機架: "accessory-11",
+  方格收納架: "accessory-12",
+  "方格收納架-長款": "accessory-13",
+  "方格收納架[長]": "accessory-13",
+  "梳妝收納架[長]": "accessory-14",
+  瓶子收納架: "bottles",
+  砧板架: "accessory-16",
+  紙巾雙層置物架: "accessory-17",
+  自由調節收納架: "accessory-18",
+  鍋蓋架: "accessory-19",
+  長方開放置物架: "accessory-20",
+  隱形六勾衣帽架: "accessory-21",
+  雙鉤牙刷架: "accessory-22",
+  餐具架: "accessory-23",
+  餐巾紙捲架: "accessory-24",
+};
+
+export function setItemKind(item: SetCompositionItem): AccessoryId | undefined {
+  return SET_ITEM_KINDS[item.name];
+}
+
+/** [原價, 特價] for a set variant, from the owner's price sheet. */
+export function getSetPrice(
+  variant: SetVariant | undefined
+): readonly [number, number] | undefined {
+  return variant ? SET_PRICES[variant.sku] : undefined;
 }
 
 export function setFinishForPatternName(name: string): Finish {

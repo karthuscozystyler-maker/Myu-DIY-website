@@ -103,6 +103,18 @@ p {
   margin: 0 auto;
 }
 
+/* Phone order: fabric first, then accessories, then the board to arrange them on.
+   (Desktop places these explicitly on its grid.) */
+.planner-workspace > .planner-setup {
+  order: 1;
+}
+.planner-workspace > .planner-catalog-dock {
+  order: 2;
+}
+.planner-workspace > .planner-studio {
+  order: 3;
+}
+
 .planner-setup,
 .planner-studio,
 .planner-catalog-dock {

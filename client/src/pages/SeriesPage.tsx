@@ -1,36 +1,57 @@
 import { useEffect, useRef, useState } from "react";
+import type Konva from "konva";
 import { Check, ChevronDown, ChevronRight, X } from "lucide-react";
 import { Link } from "wouter";
 import NotFound from "./NotFound";
 import FabricPicker from "../configurator/FabricPicker";
 import PurchaseDialog from "../configurator/PurchaseDialog";
 import CartActions from "../configurator/CartActions";
+import BoardCanvas from "../configurator/BoardCanvas";
+import { buildSetDesign, restyleSetDesign } from "../configurator/set-layout";
 import { buildSetCartSelection } from "../configurator/cart-plan";
 import { getBoardImage, getProductImage } from "../configurator/assets";
 import {
   BOARDS,
-  CATALOG,
   SERIES,
+  constrain,
   type BoardKind,
+  type Design,
   type Pattern,
-  type PieceKind,
   type Series,
 } from "../configurator/model";
 import { FABRICS, getFabric } from "../configurator/fabrics";
 import {
+  getSetPrice,
   getSetsForSeries,
   getSetVariant,
   setFinishForPatternName,
+  setItemKind,
   type PresetSet,
 } from "../configurator/sets";
 import "./pages.css";
 
 const DEFAULT_PATTERN: Pattern = FABRICS[0]?.id ?? "plain";
 
-function catalogKindForName(name: string): PieceKind | undefined {
-  return (Object.keys(CATALOG) as PieceKind[]).find(
-    kind => CATALOG[kind].name === name
+const money = (n: number) => `HK$${n.toLocaleString("en-HK")}`;
+
+/** Set price for the chosen fabric: 特價 with the 原價 struck through. */
+function SetPrice({ price }: { price: readonly [number, number] | undefined }) {
+  if (!price) return null;
+  return (
+    <p className="set-price">
+      <small>套裝價</small>
+      <strong>{money(price[1])}</strong>
+      <s>{money(price[0])}</s>
+    </p>
   );
+}
+
+/** Lowest 特價 across the fabrics a set is sold in. */
+function lowestSetPrice(preset: PresetSet): number | undefined {
+  const prices = FABRICS.map(
+    fabric => getSetPrice(getSetVariant(preset, fabric.name))?.[1]
+  ).filter((n): n is number => typeof n === "number");
+  return prices.length ? Math.min(...prices) : undefined;
 }
 
 function SetReview({
@@ -48,6 +69,7 @@ function SetReview({
   const color = finish === "charcoal" ? "岩嶺暗灰" : "米白";
   const [busy, setBusy] = useState(false);
   const lines = variant ? buildSetCartSelection(preset, pattern) : [];
+  const price = getSetPrice(variant);
   return (
     <PurchaseDialog onClose={onClose} busy={busy}>
       <section
@@ -79,7 +101,7 @@ function SetReview({
               <b>1 張</b>
             </li>
             {preset.composition.map((item, i) => {
-              const kind = catalogKindForName(item.name);
+              const kind = setItemKind(item);
               return (
                 <li key={i}>
                   {kind && (
@@ -101,6 +123,7 @@ function SetReview({
               );
             })}
           </ul>
+          <SetPrice price={price} />
           <p className="planner-review-limitation">
             價格、優惠及庫存以購物車為準。加入購物車後仍需完成結帳；圖片與排位只供參考。
           </p>
@@ -131,13 +154,18 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
   const [pattern, setPattern] = useState<Pattern>(DEFAULT_PATTERN);
   const [picker, setPicker] = useState(false);
   const [review, setReview] = useState(false);
+  const [design, setDesign] = useState<Design | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
+  const stageRef = useRef<Konva.Stage | null>(null);
   const detail = useRef<HTMLElement>(null);
   const reviewButton = useRef<HTMLButtonElement>(null);
   const fabric = getFabric(pattern);
   const finish = setFinishForPatternName(fabric.name);
   const variant = preset ? getSetVariant(preset, fabric.name) : undefined;
+  const price = getSetPrice(variant);
   useEffect(() => {
     setPreset(null);
+    setDesign(null);
     setSize("small");
     setPattern(DEFAULT_PATTERN);
   }, [seriesId]);
@@ -147,8 +175,49 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
   );
   function select(next: PresetSet) {
     setPreset(next);
+    setDesign(buildSetDesign(next, pattern, finish));
+    setSelected(null);
     requestAnimationFrame(() =>
       detail.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+    );
+  }
+  function closeSet() {
+    setPreset(null);
+    setDesign(null);
+  }
+  function move(id: string, x: number, y: number) {
+    setDesign(
+      current =>
+        current && {
+          ...current,
+          pieces: current.pieces.map(piece =>
+            piece.id === id
+              ? {
+                  ...piece,
+                  ...constrain(
+                    piece.kind,
+                    current.board,
+                    x,
+                    y,
+                    false,
+                    current.orientation
+                  ),
+                }
+              : piece
+          ),
+        }
+    );
+  }
+  function choosePattern(next: Pattern) {
+    setPattern(next);
+    setDesign(
+      current =>
+        current &&
+        restyleSetDesign(
+          current,
+          next,
+          setFinishForPatternName(getFabric(next).name)
+        )
     );
   }
   return (
@@ -168,7 +237,7 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
               aria-pressed={size === "small"}
               onClick={() => {
                 setSize("small");
-                setPreset(null);
+                closeSet();
               }}
             >
               38×70 cm
@@ -178,7 +247,7 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
               aria-pressed={size === "large"}
               onClick={() => {
                 setSize("large");
-                setPreset(null);
+                closeSet();
               }}
             >
               70×100 cm
@@ -196,6 +265,11 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
               <p>
                 {s.composition.map(i => `${i.name} × ${i.quantity}`).join("、")}
               </p>
+              {lowestSetPrice(s) !== undefined && (
+                <em className="set-card-price">
+                  {money(lowestSetPrice(s)!)} 起
+                </em>
+              )}
               <span>
                 {preset?.id === s.id ? "已選套裝" : "查看套裝"}
                 {preset?.id === s.id ? (
@@ -207,7 +281,7 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
             </button>
           ))}
         </div>
-        {preset && (
+        {preset && design && (
           <section
             ref={detail}
             className="set-detail"
@@ -215,28 +289,25 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
           >
             <div className="set-detail-heading">
               <h2>{preset.title}</h2>
-              <button onClick={() => setPreset(null)} aria-label="收起套裝內容">
+              <button onClick={closeSet} aria-label="收起套裝內容">
                 <X size={19} />
               </button>
             </div>
             <div className="set-detail-body">
-              <div className="set-cloth-preview">
-                <div
-                  className="set-cloth-surface"
-                  role="img"
-                  aria-label={fabric.name}
-                  style={{
-                    aspectRatio: `${BOARDS[preset.board].width}/${BOARDS[preset.board].height}`,
-                    backgroundImage: `url(${getBoardImage(pattern)})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                />
+              <div className="set-canvas">
+                <div className="planner-canvas-slot">
+                  <BoardCanvas
+                    design={design}
+                    selected={selected}
+                    onSelect={setSelected}
+                    onMove={move}
+                    stageRef={stageRef}
+                  />
+                </div>
                 <p>
-                  引磁布 × 1 張<br />
                   {BOARDS[preset.board].label}
-                  <br />
-                  完整配件內容列於旁邊；部分配件圖片待補，暫不提供整套排位預覽。
+                  {design.orientation === "landscape" ? " · 橫放" : " · 直放"}
+                  ；拖動配件可調整位置。
                 </p>
               </div>
               <div className="set-controls">
@@ -251,10 +322,11 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
                   </div>
                   <ChevronDown size={18} />
                 </button>
+                <SetPrice price={price} />
                 <div className="set-contents">
                   <h3>套裝已包含</h3>
                   {preset.composition.map((item, i) => {
-                    const kind = catalogKindForName(item.name);
+                    const kind = setItemKind(item);
                     return (
                       <div className="set-contents-row" key={i}>
                         {kind && (
@@ -287,7 +359,7 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
                 </button>
                 <p className="set-reference-note">
                   {!variant && "此布款暫不適用於此套裝，請揀其他布款。"}
-                  套裝價格及庫存以 SHOPLINE 為準，尚未下單。
+                  最終價格、優惠及庫存以購物車為準。
                 </p>
               </div>
             </div>
@@ -298,7 +370,7 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
         <FabricPicker
           value={pattern}
           onChange={p => {
-            setPattern(p);
+            choosePattern(p);
             setPicker(false);
           }}
           onClose={() => setPicker(false)}

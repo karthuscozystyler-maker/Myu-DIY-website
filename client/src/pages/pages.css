@@ -609,3 +609,56 @@
     width: 140px;
   }
 }
+
+/* Preset set: the set's accessories laid out on the chosen fabric, movable. */
+.set-canvas {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #e7ddcf;
+  border-radius: 8px;
+  padding: 10px 0;
+  background: #fff;
+}
+.set-canvas .planner-canvas-slot {
+  width: 100%;
+}
+.set-canvas > p {
+  padding: 0 12px;
+  color: #8e7965;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+@media (min-width: 1024px) {
+  .set-canvas .planner-canvas-slot {
+    height: 560px;
+  }
+}
+.set-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0;
+}
+.set-price small {
+  color: #8e7965;
+  font-size: 13px;
+}
+.set-price strong {
+  color: #5b3926;
+  font-size: 24px;
+  font-weight: 750;
+}
+.set-price s {
+  color: #a8957f;
+  font-size: 14px;
+}
+.set-card-price {
+  color: #5b3926;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+}
