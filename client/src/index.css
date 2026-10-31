@@ -328,7 +328,8 @@ p {
 
 .planner-selection-bar {
   display: flex;
-  min-height: 54px;
+  height: 54px;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
@@ -352,6 +353,11 @@ p {
 .planner-selected-name strong {
   font-size: 14px;
   font-weight: 700;
+}
+
+.planner-selected-name.is-empty strong {
+  color: var(--planner-muted);
+  font-weight: 600;
 }
 
 .planner-selected-name span {

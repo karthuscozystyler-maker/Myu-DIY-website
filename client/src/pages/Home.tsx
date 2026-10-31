@@ -402,26 +402,34 @@ export default function Home() {
               <span>{design.pieces.length} 件已排位</span>
             </div>
 
-            {selectedPiece && (
-              <div className="planner-selection-bar" aria-label="選取配件操作">
-                <div className="planner-selected-name">
-                  <strong>{CATALOG[selectedPiece.kind].name}</strong>
-                  <span>
-                    {selectedPiece.finish === "charcoal"
-                      ? "岩嶺暗灰"
-                      : "奶油米白"}
-                  </span>
+            {/* Always rendered so selecting a piece never changes the canvas size. */}
+            <div className="planner-selection-bar" aria-label="選取配件操作">
+              {selectedPiece ? (
+                <>
+                  <div className="planner-selected-name">
+                    <strong>{CATALOG[selectedPiece.kind].name}</strong>
+                    <span>
+                      {selectedPiece.finish === "charcoal"
+                        ? "岩嶺暗灰"
+                        : "奶油米白"}
+                    </span>
+                  </div>
+                  <button
+                    className="planner-delete-selected"
+                    onClick={removeSelected}
+                    aria-label={`刪除${CATALOG[selectedPiece.kind].name}`}
+                  >
+                    <Trash2 size={17} />
+                    <span>刪除</span>
+                  </button>
+                </>
+              ) : (
+                <div className="planner-selected-name is-empty">
+                  <strong>未選取配件</strong>
+                  <span>點選布上的配件，可查看名稱或刪除。</span>
                 </div>
-                <button
-                  className="planner-delete-selected"
-                  onClick={removeSelected}
-                  aria-label={`刪除${CATALOG[selectedPiece.kind].name}`}
-                >
-                  <Trash2 size={17} />
-                  <span>刪除</span>
-                </button>
-              </div>
-            )}
+              )}
+            </div>
           </section>
 
           <CatalogDock

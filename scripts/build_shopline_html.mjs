@@ -183,7 +183,8 @@ const loader = src =>
   `<div data-myu-embed>\n  <p style="padding:20px;color:#5b3926;">載入收納工具…</p>\n  <script src="${src}"></script>\n</div>\n`;
 fs.writeFileSync(
   path.join(site, "index.html"),
-  `${pageHead}${loader(RUNTIME_FILE)}</body>\n</html>\n`
+  // The preview page asks for this exact build, so a cached older runtime is never reused.
+  `${pageHead}${loader(`${RUNTIME_FILE}?v=${assetVersion}`)}</body>\n</html>\n`
 );
 
 const safe = text => text.replace(/<\/script/gi, "<\\/script");
