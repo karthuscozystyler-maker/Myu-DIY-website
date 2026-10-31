@@ -816,11 +816,11 @@ export const PRESET_SETS: PresetSet[] = [
     board: "small",
     composition: [
       { name: "紙巾雙層置物架", quantity: 1 },
-      { name: "隱形六勾衣帽架", quantity: 1 },
+      { name: "六勾架", quantity: 1, kind: "hooks" },
       { name: "多功能雙桿架", quantity: 1 },
     ],
     publicDescription:
-      "38×70 cm 磁吸布套裝，固定包含：紙巾雙層置物架 × 1、隱形六勾衣帽架 × 1、多功能雙桿架 × 1。",
+      "38×70 cm 磁吸布套裝，固定包含：紙巾雙層置物架 × 1、六勾架 × 1、多功能雙桿架 × 1。",
     variants: [
       { patternName: "灰白格紋", sku: "myu-lego-entry-s-gwp-set2" },
       { patternName: "經典奶茶格紋", sku: "myu-lego-entry-s-cmtp-set2" },
@@ -852,12 +852,12 @@ export const PRESET_SETS: PresetSet[] = [
     title: "玄關 38×70 cm Set 3",
     board: "small",
     composition: [
-      { name: "紙巾雙層置物架", quantity: 1 },
+      { name: "單格收納桶", quantity: 1 },
       { name: "六連勾雙層置物架", quantity: 1 },
-      { name: "隱形六勾衣帽架", quantity: 1 },
+      { name: "公仔展示收納架", quantity: 1 },
     ],
     publicDescription:
-      "38×70 cm 磁吸布套裝，固定包含：紙巾雙層置物架 × 1、六連勾雙層置物架 × 1、隱形六勾衣帽架 × 1。",
+      "38×70 cm 磁吸布套裝，固定包含：單格收納桶 × 1、六連勾雙層置物架 × 1、公仔展示收納架 × 1。",
     variants: [
       { patternName: "灰白格紋", sku: "myu-lego-entry-s-gwp-set3" },
       { patternName: "經典奶茶格紋", sku: "myu-lego-entry-s-cmtp-set3" },

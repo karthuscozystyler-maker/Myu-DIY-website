@@ -22,6 +22,13 @@ describe("預設套裝排位與價錢", () => {
     }
   });
 
+  it("fits every set on an upright board (no item wider than the fabric)", () => {
+    for (const preset of PRESET_SETS)
+      expect(buildSetDesign(preset, FABRICS[0].id, "cream").orientation, preset.id).toBe(
+        "portrait"
+      );
+  });
+
   it("lays every set out inside its board with no overlapping pieces", () => {
     for (const preset of PRESET_SETS) {
       const design = buildSetDesign(preset, FABRICS[0].id, "cream");
