@@ -32,8 +32,9 @@ import "./pages.css";
 
 const DEFAULT_PATTERN: Pattern = FABRICS[0]?.id ?? "plain";
 
-// Set prices are ready (set-prices.ts) but on hold at the owner's request.
-const SHOW_SET_PRICES = false;
+// Reference set prices from the owner's sheet (set-prices.ts), shown until the
+// sets are listed on SHOPLINE and live prices come from the cart API.
+const SHOW_SET_PRICES = true;
 
 const money = (n: number) => `HK$${n.toLocaleString("en-HK")}`;
 
