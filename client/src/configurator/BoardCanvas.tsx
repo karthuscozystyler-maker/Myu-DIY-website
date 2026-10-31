@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Konva from "konva";
 import {
   Stage,
@@ -7,7 +7,6 @@ import {
   Rect,
   Line,
   Text,
-  Image as KonvaImage,
 } from "react-konva";
 import PieceArt, { useProductImage } from "./PieceArt";
 import {
@@ -45,6 +44,33 @@ const MOBILE_QUERY = "(max-width: 1023px)";
 const MOBILE_BOARD_WIDTH_RATIO = 0.89;
 const MOBILE_RULER_HEIGHT = 22;
 const MOBILE_RULER_GUTTER = 16;
+
+// Real size of the piece each fabric photo shows (mm).
+const SWATCH_SHORT_MM = 380;
+const SWATCH_LONG_MM = 700;
+
+/**
+ * The swatch photos are not seamless. A 2 × 2 tile of the photo and its
+ * mirror images repeats without visible joins, so checks and stripes stay
+ * continuous on boards larger than one swatch.
+ */
+function mirroredTile(image: HTMLImageElement | null): HTMLCanvasElement | null {
+  if (!image || !image.width || !image.height) return null;
+  const { width: w, height: h } = image;
+  const canvas = document.createElement("canvas");
+  canvas.width = w * 2;
+  canvas.height = h * 2;
+  const context = canvas.getContext("2d");
+  if (!context) return null;
+  for (const [flipX, flipY] of [[false, false], [true, false], [false, true], [true, true]]) {
+    context.save();
+    context.translate(flipX ? w * 2 : 0, flipY ? h * 2 : 0);
+    context.scale(flipX ? -1 : 1, flipY ? -1 : 1);
+    context.drawImage(image, 0, 0, w, h);
+    context.restore();
+  }
+  return canvas;
+}
 
 function touchByIdentifier(touches: TouchList, identifier: number) {
   for (let index = 0; index < touches.length; index += 1) {
@@ -85,6 +111,7 @@ export default function BoardCanvas({
       typeof window !== "undefined" && window.matchMedia(MOBILE_QUERY).matches
   );
   const texture = useProductImage(getBoardImage(design.pattern));
+  const pattern = useMemo(() => mirroredTile(texture), [texture]);
 
   latestInteraction.current = { design, snap, onMove, onSelect };
 
@@ -193,17 +220,14 @@ export default function BoardCanvas({
   const rulerFontSize = Math.min(12, desktopRulerGutter * 0.55);
   const mobileRulerTick = 3;
   const mobileRulerFontSize = 10;
-  const textureScale =
+  // Each fabric photo shows a real 38 × 70 cm piece. Draw it at that size and
+  // repeat it on bigger boards, so the pattern keeps its true scale.
+  const textureTile =
     texture && texture.width > 0 && texture.height > 0
-      ? Math.max(
-          baseBoard.width / texture.width,
-          baseBoard.height / texture.height
-        )
-      : 0;
-  const textureWidth = texture ? texture.width * textureScale : 0;
-  const textureHeight = texture ? texture.height * textureScale : 0;
-  const textureX = (baseBoard.width - textureWidth) / 2;
-  const textureY = (baseBoard.height - textureHeight) / 2;
+      ? texture.width > texture.height
+        ? { width: SWATCH_LONG_MM, height: SWATCH_SHORT_MM }
+        : { width: SWATCH_SHORT_MM, height: SWATCH_LONG_MM }
+      : null;
 
   metricsRef.current = { boardX, boardY, scale };
 
@@ -637,19 +661,20 @@ export default function BoardCanvas({
               clipWidth={board.width}
               clipHeight={board.height}
             >
-              {texture && textureWidth > 0 && textureHeight > 0 && (
+              {texture && pattern && textureTile && (
                 <Group
                   x={design.orientation === "landscape" ? board.width : 0}
                   y={0}
                   rotation={design.orientation === "landscape" ? 90 : 0}
                   listening={false}
                 >
-                  <KonvaImage
-                    image={texture}
-                    x={textureX}
-                    y={textureY}
-                    width={textureWidth}
-                    height={textureHeight}
+                  <Rect
+                    width={baseBoard.width}
+                    height={baseBoard.height}
+                    fillPatternImage={pattern as unknown as HTMLImageElement}
+                    fillPatternRepeat="repeat"
+                    fillPatternScaleX={textureTile.width / texture.width}
+                    fillPatternScaleY={textureTile.height / texture.height}
                   />
                 </Group>
               )}

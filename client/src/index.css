@@ -925,6 +925,14 @@ p {
   font-size: 10px;
 }
 
+.planner-fabric-note {
+  margin: 0;
+  padding: 6px 14px 8px;
+  color: var(--planner-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .planner-fabric-empty {
   padding: 18px 2px;
   color: var(--planner-muted);

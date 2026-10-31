@@ -9,6 +9,10 @@ import { Search, X } from "lucide-react";
 import { getBoardImage } from "./assets";
 import { FABRICS, getFabric, type Fabric, type FabricId } from "./fabrics";
 
+/** Shown wherever a fabric is chosen. */
+export const FABRIC_COLOUR_NOTE =
+  "受螢幕設定及拍攝光線影響，網上顯示的布款顏色及花紋大小可能與實物略有差異，請以實物為準。";
+
 type FabricPickerProps<T extends string = FabricId> = {
   value: T;
   onChange: (pattern: T) => void;
@@ -134,6 +138,8 @@ export default function FabricPicker<T extends string = FabricId>({
             ))}
           </div>
         </div>
+
+        <p className="planner-fabric-note">{FABRIC_COLOUR_NOTE}</p>
 
         <div className="planner-fabric-scroll">
           {fabrics.length ? (

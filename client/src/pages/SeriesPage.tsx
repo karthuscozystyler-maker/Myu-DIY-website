@@ -3,7 +3,7 @@ import type Konva from "konva";
 import { Check, ChevronDown, ChevronRight, X } from "lucide-react";
 import { Link } from "wouter";
 import NotFound from "./NotFound";
-import FabricPicker from "../configurator/FabricPicker";
+import FabricPicker, { FABRIC_COLOUR_NOTE } from "../configurator/FabricPicker";
 import PurchaseDialog from "../configurator/PurchaseDialog";
 import CartActions from "../configurator/CartActions";
 import BoardCanvas from "../configurator/BoardCanvas";
@@ -326,6 +326,7 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
                   </div>
                   <ChevronDown size={18} />
                 </button>
+                <p className="set-reference-note">{FABRIC_COLOUR_NOTE}</p>
                 <SetPrice price={price} />
                 <div className="set-contents">
                   <h3>套裝已包含</h3>
