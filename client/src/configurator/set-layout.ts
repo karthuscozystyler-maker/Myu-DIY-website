@@ -8,19 +8,32 @@ import {
 } from "./model";
 import { setItemKind, type PresetSet } from "./sets";
 
-/** Lays a preset set's accessories out on its board so the customer can rearrange them. */
+/** Whether every accessory of the set fits the set's board in this direction. */
+export function setFits(preset: PresetSet, orientation: Orientation): boolean {
+  return preset.composition.every(item => {
+    const kind = setItemKind(item);
+    return !kind || canPlacePiece(kind, preset.board, orientation);
+  });
+}
+
+/**
+ * Lays a preset set's accessories out on its board so the customer can
+ * rearrange them. The size is fixed by the set; the customer may turn the
+ * board, which lays the set out afresh in the new direction.
+ */
 export function buildSetDesign(
   preset: PresetSet,
   pattern: Pattern,
-  finish: Finish
+  finish: Finish,
+  requested?: Orientation
 ): Design {
   const kinds = preset.composition.map(setItemKind);
-  // A 38 cm-wide portrait board cannot take e.g. the 42.5 cm coat hook rack: lay it landscape.
-  const orientation: Orientation = kinds.every(
-    kind => !kind || canPlacePiece(kind, preset.board, "portrait")
-  )
-    ? "portrait"
-    : "landscape";
+  const orientation: Orientation =
+    requested && setFits(preset, requested)
+      ? requested
+      : setFits(preset, "portrait")
+        ? "portrait"
+        : "landscape";
   let design: Design = {
     version: 2,
     board: preset.board,

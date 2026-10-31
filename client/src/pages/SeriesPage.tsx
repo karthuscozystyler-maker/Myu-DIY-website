@@ -7,7 +7,11 @@ import FabricPicker, { FABRIC_COLOUR_NOTE } from "../configurator/FabricPicker";
 import PurchaseDialog from "../configurator/PurchaseDialog";
 import CartActions from "../configurator/CartActions";
 import BoardCanvas from "../configurator/BoardCanvas";
-import { buildSetDesign, restyleSetDesign } from "../configurator/set-layout";
+import {
+  buildSetDesign,
+  restyleSetDesign,
+  setFits,
+} from "../configurator/set-layout";
 import { buildSetCartSelection } from "../configurator/cart-plan";
 import { getBoardImage, getProductImage } from "../configurator/assets";
 import {
@@ -16,6 +20,7 @@ import {
   constrain,
   type BoardKind,
   type Design,
+  type Orientation,
   type Pattern,
   type Series,
 } from "../configurator/model";
@@ -212,6 +217,12 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
         }
     );
   }
+  // The set's size is fixed; the board may be turned. Turning lays the set out afresh.
+  function chooseOrientation(next: Orientation) {
+    if (!preset || !design || design.orientation === next) return;
+    setDesign(buildSetDesign(preset, pattern, finish, next));
+    setSelected(null);
+  }
   function choosePattern(next: Pattern) {
     setPattern(next);
     setDesign(
@@ -299,6 +310,23 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
             </div>
             <div className="set-detail-body">
               <div className="set-canvas">
+                <div
+                  className="planner-orientation set-orientation"
+                  role="group"
+                  aria-label="布面方向"
+                >
+                  {(["portrait", "landscape"] as const).map(option => (
+                    <button
+                      key={option}
+                      className={design.orientation === option ? "is-active" : ""}
+                      onClick={() => chooseOrientation(option)}
+                      aria-pressed={design.orientation === option}
+                      disabled={!setFits(preset, option)}
+                    >
+                      {option === "portrait" ? "直放" : "橫放"}
+                    </button>
+                  ))}
+                </div>
                 <div className="planner-canvas-slot">
                   <BoardCanvas
                     design={design}
@@ -311,7 +339,7 @@ export default function SeriesPage({ seriesId }: { seriesId: string }) {
                 <p>
                   {BOARDS[preset.board].label}
                   {design.orientation === "landscape" ? " · 橫放" : " · 直放"}
-                  ；拖動配件可調整位置。
+                  ；可轉直放／橫放，拖動配件可調整位置。
                 </p>
               </div>
               <div className="set-controls">

@@ -29,6 +29,20 @@ describe("預設套裝排位與價錢", () => {
       );
   });
 
+  it("lays every set out upright or sideways without overlaps (size stays the set's)", () => {
+    for (const preset of PRESET_SETS)
+      for (const orientation of ["portrait", "landscape"] as const) {
+        const design = buildSetDesign(preset, FABRICS[0].id, "cream", orientation);
+        expect(design.orientation, `${preset.id} ${orientation}`).toBe(orientation);
+        expect(design.board).toBe(preset.board);
+        expect(overlapping(design).size, `${preset.id} ${orientation}`).toBe(0);
+        for (const piece of design.pieces)
+          expect(
+            constrain(piece.kind, design.board, piece.x, piece.y, false, orientation)
+          ).toEqual({ x: piece.x, y: piece.y });
+      }
+  });
+
   it("lays every set out inside its board with no overlapping pieces", () => {
     for (const preset of PRESET_SETS) {
       const design = buildSetDesign(preset, FABRICS[0].id, "cream");

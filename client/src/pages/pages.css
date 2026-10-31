@@ -662,3 +662,7 @@
   font-style: normal;
   font-weight: 700;
 }
+
+.set-canvas .set-orientation {
+  align-self: center;
+}

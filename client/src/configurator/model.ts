@@ -323,15 +323,19 @@ export function freePosition(
 
   const board = getBoard(design);
   const item = CATALOG[kind];
-  for (let y = 30; y <= board.height - item.height; y += 30) {
-    for (let x = 30; x <= board.width - item.width; x += 30) {
-      const candidate: Piece = { id: "candidate", kind, x, y, finish: "cream" };
-      if (
-        !overlapping({ ...design, pieces: [...design.pieces, candidate] }).has(
-          "candidate"
+  // Prefer a tidy 3 cm grid with a margin; fall back to a 1 cm grid to the
+  // edges so tight sets (e.g. three wide shelves on a sideways 38×70) still fit.
+  for (const [start, step] of [[30, 30], [0, 10]]) {
+    for (let y = start; y <= board.height - item.height; y += step) {
+      for (let x = start; x <= board.width - item.width; x += step) {
+        const candidate: Piece = { id: "candidate", kind, x, y, finish: "cream" };
+        if (
+          !overlapping({ ...design, pieces: [...design.pieces, candidate] }).has(
+            "candidate"
+          )
         )
-      )
-        return { x, y };
+          return { x, y };
+      }
     }
   }
   return constrain(
