@@ -1,0 +1,575 @@
+[
+  {
+    "type": "accessory",
+    "key": "accessory-01",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-01-cream-front.webp",
+    "filename": "accessory-01-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-01",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-01-charcoal-front.webp",
+    "filename": "accessory-01-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "hooks",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-02-cream-front.webp",
+    "filename": "accessory-02-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "hooks",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-02-charcoal-front.webp",
+    "filename": "accessory-02-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-03",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-03-cream-front.webp",
+    "filename": "accessory-03-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-03",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-03-charcoal-front.webp",
+    "filename": "accessory-03-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "knife",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-04-cream-front.webp",
+    "filename": "accessory-04-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "knife",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-04-charcoal-front.webp",
+    "filename": "accessory-04-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-05",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-05-cream-front.webp",
+    "filename": "accessory-05-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-05",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-05-charcoal-front.webp",
+    "filename": "accessory-05-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-06",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-06-cream-front.webp",
+    "filename": "accessory-06-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-06",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-06-charcoal-front.webp",
+    "filename": "accessory-06-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-07",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-07-cream-front.webp",
+    "filename": "accessory-07-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-07",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-07-charcoal-front.webp",
+    "filename": "accessory-07-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-08",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-08-cream-front.webp",
+    "filename": "accessory-08-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-08",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-08-charcoal-front.webp",
+    "filename": "accessory-08-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-09",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-09-cream-front.webp",
+    "filename": "accessory-09-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-09",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-09-charcoal-front.webp",
+    "filename": "accessory-09-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-10",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-10-cream-front.webp",
+    "filename": "accessory-10-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-10",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-10-charcoal-front.webp",
+    "filename": "accessory-10-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-11",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-11-cream-front.webp",
+    "filename": "accessory-11-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-11",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-11-charcoal-front.webp",
+    "filename": "accessory-11-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-12",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-12-cream-front.webp",
+    "filename": "accessory-12-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-12",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-12-charcoal-front.webp",
+    "filename": "accessory-12-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-13",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-13-cream-front.webp",
+    "filename": "accessory-13-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-13",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-13-charcoal-front.webp",
+    "filename": "accessory-13-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-14",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-14-cream-front.webp",
+    "filename": "accessory-14-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-14",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-14-charcoal-front.webp",
+    "filename": "accessory-14-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "bottles",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-15-cream-front.webp",
+    "filename": "accessory-15-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "bottles",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-15-charcoal-front.webp",
+    "filename": "accessory-15-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-16",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-16-cream-front.webp",
+    "filename": "accessory-16-cream-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-16",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-16-charcoal-front.webp",
+    "filename": "accessory-16-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-17",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-17-cream-front.webp",
+    "filename": "accessory-17-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-17",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-17-charcoal-front.webp",
+    "filename": "accessory-17-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-18",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-18-cream-front.webp",
+    "filename": "accessory-18-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-18",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-18-charcoal-front.webp",
+    "filename": "accessory-18-charcoal-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-19",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-19-cream-front.webp",
+    "filename": "accessory-19-cream-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-19",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-19-charcoal-front.webp",
+    "filename": "accessory-19-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-20",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-20-cream-front.webp",
+    "filename": "accessory-20-cream-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-20",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-20-charcoal-front.webp",
+    "filename": "accessory-20-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-21",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-21-cream-front.webp",
+    "filename": "accessory-21-cream-front.webp",
+    "fallbackOriginal": false
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-21",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-21-charcoal-front.webp",
+    "filename": "accessory-21-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-22",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-22-cream-front.webp",
+    "filename": "accessory-22-cream-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-22",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-22-charcoal-front.webp",
+    "filename": "accessory-22-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-23",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-23-cream-front.webp",
+    "filename": "accessory-23-cream-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-23",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-23-charcoal-front.webp",
+    "filename": "accessory-23-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-24",
+    "finish": "cream",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-24-cream-front.webp",
+    "filename": "accessory-24-cream-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "accessory",
+    "key": "accessory-24",
+    "finish": "charcoal",
+    "file": "/home/ubuntu/wallplay/client/public/products/accessory-24-charcoal-front.webp",
+    "filename": "accessory-24-charcoal-front.webp",
+    "fallbackOriginal": true
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-ksp",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-ksp.webp",
+    "filename": "fabric-fabric-ksp.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/卡其小格紋MYU397-102.jpeg",
+    "sourceWidth": 1078,
+    "sourceHeight": 1986
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-wt",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-wt.webp",
+    "filename": "fabric-fabric-wt.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/奶油米白.jpeg",
+    "sourceWidth": 793,
+    "sourceHeight": 1459
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-grid",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-grid.webp",
+    "filename": "fabric-fabric-grid.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/奶茶小方磚.jpeg",
+    "sourceWidth": 792,
+    "sourceHeight": 1459
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-mtg",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-mtg.webp",
+    "filename": "fabric-fabric-mtg.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/奶茶灰MYU397-110.jpeg",
+    "sourceWidth": 1078,
+    "sourceHeight": 1986
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-mtdfl",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-mtdfl.webp",
+    "filename": "fabric-fabric-mtdfl.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/奶茶雙細線MYU397-103.jpeg",
+    "sourceWidth": 1078,
+    "sourceHeight": 1986
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-cyw",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-cyw.webp",
+    "filename": "fabric-fabric-cyw.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/奶黃色MYU397-108.jpeg",
+    "sourceWidth": 1079,
+    "sourceHeight": 1986
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-lps",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-lps.webp",
+    "filename": "fabric-fabric-lps.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/嫩粉條紋MYU397-106.jpeg",
+    "sourceWidth": 1078,
+    "sourceHeight": 1985
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-gy",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-gy.webp",
+    "filename": "fabric-fabric-gy.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/岩岭暗灰.jpeg",
+    "sourceWidth": 793,
+    "sourceHeight": 1459
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-mkl",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-mkl.webp",
+    "filename": "fabric-fabric-mkl.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/摩卡線條.jpeg",
+    "sourceWidth": 792,
+    "sourceHeight": 1459
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-wpk",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-wpk.webp",
+    "filename": "fabric-fabric-wpk.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/暖粉色MYU397-107.jpeg",
+    "sourceWidth": 1079,
+    "sourceHeight": 1985
+  },
+  {
+    "type": "fabric",
+    "key": "floral",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-floral.webp",
+    "filename": "fabric-floral.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/沐慕小花磚MYU440-15_16.jpeg",
+    "sourceWidth": 1078,
+    "sourceHeight": 1985
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-line",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-line.webp",
+    "filename": "fabric-fabric-line.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/沐慕線條.jpeg",
+    "sourceWidth": 793,
+    "sourceHeight": 1459
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-dbn",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-dbn.webp",
+    "filename": "fabric-fabric-dbn.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/深咖色MYU397-109.jpeg",
+    "sourceWidth": 1078,
+    "sourceHeight": 1985
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-lgs",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-lgs.webp",
+    "filename": "fabric-fabric-lgs.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/淺灰條紋MYU397-104.jpeg",
+    "sourceWidth": 1079,
+    "sourceHeight": 1986
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-gwp",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-gwp.webp",
+    "filename": "fabric-fabric-gwp.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/灰白格紋MYU397-100.jpeg",
+    "sourceWidth": 1079,
+    "sourceHeight": 1985
+  },
+  {
+    "type": "fabric",
+    "key": "gingham",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-gingham.webp",
+    "filename": "fabric-gingham.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/經典奶茶格紋MYU440-13_14.jpeg",
+    "sourceWidth": 1078,
+    "sourceHeight": 1985
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-bgs",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-bgs.webp",
+    "filename": "fabric-fabric-bgs.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/藍灰條紋MYU397-105.jpeg",
+    "sourceWidth": 1985,
+    "sourceHeight": 1078
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-bwp",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-bwp.webp",
+    "filename": "fabric-fabric-bwp.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/藍白格紋MYU397-101.jpeg",
+    "sourceWidth": 1079,
+    "sourceHeight": 1985
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-bg",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-bg.webp",
+    "filename": "fabric-fabric-bg.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/藍綠色MYU397-112.jpeg",
+    "sourceWidth": 1079,
+    "sourceHeight": 1985
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-fbl",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-fbl.webp",
+    "filename": "fabric-fabric-fbl.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/霧藍色MYU397-111.jpeg",
+    "sourceWidth": 1078,
+    "sourceHeight": 1985
+  },
+  {
+    "type": "fabric",
+    "key": "fabric-wh",
+    "file": "/home/ubuntu/wallplay/client/public/products/fabric-fabric-wh.webp",
+    "filename": "fabric-fabric-wh.webp",
+    "source": "/home/ubuntu/myu-preparation/fabrics-20261029/originals/引磁布顏色對照表-20261029T082459Z-1-001/引磁布顏色對照表/霧面瓷白.jpeg",
+    "sourceWidth": 793,
+    "sourceHeight": 1459
+  }
+]

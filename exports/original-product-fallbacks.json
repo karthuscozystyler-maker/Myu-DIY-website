@@ -1,0 +1,142 @@
+[
+  {
+    "id": "accessory-01",
+    "name": "公仔展示收納架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/公仔展示收納架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-01/charcoal.png"
+  },
+  {
+    "id": "accessory-04",
+    "name": "刀架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/刀架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-04/charcoal.png"
+  },
+  {
+    "id": "accessory-06",
+    "name": "吹風機架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/吹風機架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-06/charcoal.png"
+  },
+  {
+    "id": "accessory-09",
+    "name": "四格筆筒收納架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/四格筆筒收納架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-09/charcoal.png"
+  },
+  {
+    "id": "accessory-11",
+    "name": "手機架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/手機架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-11/charcoal.png"
+  },
+  {
+    "id": "accessory-12",
+    "name": "方格收納架_短款",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/方格收納架_短款bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-12/charcoal.png"
+  },
+  {
+    "id": "accessory-14",
+    "name": "梳妝收納架_長款",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/梳妝收納架_長款bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-14/charcoal.png"
+  },
+  {
+    "id": "accessory-15",
+    "name": "瓶子收納架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/瓶子收納架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-15/charcoal.png"
+  },
+  {
+    "id": "accessory-16",
+    "name": "砧板架",
+    "finish": "cream",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/砧板架we.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-16/cream.png"
+  },
+  {
+    "id": "accessory-19",
+    "name": "鍋蓋架",
+    "finish": "cream",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/鍋蓋架we.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-19/cream.png"
+  },
+  {
+    "id": "accessory-19",
+    "name": "鍋蓋架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/鍋蓋架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-19/charcoal.png"
+  },
+  {
+    "id": "accessory-20",
+    "name": "長方開放置物架",
+    "finish": "cream",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/長方開放置物架we.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-20/cream.png"
+  },
+  {
+    "id": "accessory-20",
+    "name": "長方開放置物架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/長方開放置物架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-20/charcoal.png"
+  },
+  {
+    "id": "accessory-21",
+    "name": "隱形六勾衣帽架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/隱形六勾衣帽架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-21/charcoal.png"
+  },
+  {
+    "id": "accessory-22",
+    "name": "雙鉤牙刷架",
+    "finish": "cream",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/雙鉤牙刷架we.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-22/cream.png"
+  },
+  {
+    "id": "accessory-22",
+    "name": "雙鉤牙刷架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/雙鉤牙刷架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-22/charcoal.png"
+  },
+  {
+    "id": "accessory-23",
+    "name": "餐具架",
+    "finish": "cream",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/餐具架we.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-23/cream.png"
+  },
+  {
+    "id": "accessory-23",
+    "name": "餐具架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/餐具架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-23/charcoal.png"
+  },
+  {
+    "id": "accessory-24",
+    "name": "餐巾紙捲架",
+    "finish": "cream",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/餐巾紙捲架we.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-24/cream.png"
+  },
+  {
+    "id": "accessory-24",
+    "name": "餐巾紙捲架",
+    "finish": "charcoal",
+    "source": "/home/ubuntu/myu-preparation/accessories-20261029/originals/Myu 配件/餐巾紙捲架bk.webp",
+    "output": "/home/ubuntu/myu-preparation/catalog-20261029/accessory-24/charcoal.png"
+  }
+]
